@@ -6,15 +6,15 @@ export type LabelProps = React.HTMLAttributes<HTMLElement> & {
   index: number;
 };
 
-const Label: React.FC<LabelProps> = ({ index }) => {
+const Label: React.FC<LabelProps> = ({ className, index }) => {
   return (
-    <LabelIcon>
+    <LabelIcon className={className}>
       <span>{index}/11</span>
     </LabelIcon>
   );
 };
 
-const LabelIcon = styled.div`
+export const LabelIcon = styled.div`
   padding: 8px 12px;
   font-size: 18px;
   width: 70px;
