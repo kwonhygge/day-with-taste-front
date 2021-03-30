@@ -15,8 +15,8 @@ declare module 'styled-components' {
       xSmall: string;
       small: string;
       base: string;
-      lg: string;
-      xl: string;
+      large: string;
+      xLarge: string;
     };
   }
 }

@@ -10,8 +10,8 @@ const fontSizes = {
   xSmall: calcRem(13),
   small: calcRem(14),
   base: calcRem(16),
-  lg: calcRem(18),
-  xl: calcRem(32),
+  large: calcRem(18),
+  xLarge: calcRem(32),
 };
 
 const colors = {
@@ -28,9 +28,6 @@ export const theme: DefaultTheme = {
   fontSizes,
   colors,
 };
-
-const customMediaQuery = (maxWidth: number): string =>
-  `@media (max-width: ${maxWidth}px)`;
 
 export const media = {
   // 미디어 쿼리 정의
