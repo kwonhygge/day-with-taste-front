@@ -1,13 +1,9 @@
-import Link from 'next/link';
 import Layout from '../components/Layout';
+import Home from '../components/layout/Home';
 
 const IndexPage = () => (
   <Layout>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
+    <Home />
   </Layout>
 );
 

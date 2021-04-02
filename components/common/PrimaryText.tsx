@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export type TitleTextProps = React.HTMLAttributes<HTMLElement> & {
+export type PrimaryTextProps = React.HTMLAttributes<HTMLElement> & {
   color?: 'primary' | 'white';
   children: string | string[];
 };
@@ -10,14 +10,14 @@ const Container = styled.div<{ color: 'primary' | 'white' }>`
   font-family: 'Noto Sans CJK KR';
   font-style: normal;
   font-weight: normal;
-  font-size: 24px;
-  line-height: 36px;
+  font-size: 18px;
+  line-height: 27px;
   white-space: pre-line;
   color: ${({ color, theme }) =>
     color === 'primary' ? theme.colors.primaryBlue : '#fff'};
 `;
 
-const TitleText: React.FC<TitleTextProps> = (props) => {
+const PrimaryText: React.FC<PrimaryTextProps> = (props) => {
   const { color = 'primary', children, className } = props;
   return (
     <Container {...props} className={className} color={color}>
@@ -26,4 +26,4 @@ const TitleText: React.FC<TitleTextProps> = (props) => {
   );
 };
 
-export default TitleText;
+export default PrimaryText;
