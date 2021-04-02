@@ -8,14 +8,10 @@ export type CircleProps = React.HTMLAttributes<HTMLElement> & {
   onClick?: (event: any) => void;
 };
 
-const Circle: React.FC<CircleProps> = ({
-  size,
-  backgroundColor,
-  icon,
-  onClick,
-}) => {
+const Circle: React.FC<CircleProps> = (props) => {
+  const { size, backgroundColor, icon, onClick } = props;
   return (
-    <CircleIcon color={backgroundColor} size={size}>
+    <CircleIcon color={backgroundColor} size={size} {...props}>
       <span
         onClick={(event) => onClick && onClick(event)}
         style={{ cursor: 'pointer' }}>
