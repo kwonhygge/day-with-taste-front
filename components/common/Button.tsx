@@ -10,6 +10,7 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const Button: React.FC<ButtonProps> = ({
+  className,
   color,
   label,
   onClick,
@@ -17,6 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   size,
 }) => (
   <StyledButton
+    className={className}
     onClick={(event) => onClick && onClick(event)}
     value={value}
     size={size}

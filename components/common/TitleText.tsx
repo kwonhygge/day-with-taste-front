@@ -18,10 +18,15 @@ const Container = styled.div<{ color: 'primary' | 'white' }>`
 `;
 
 const TitleText: React.FC<TitleTextProps> = ({
+  className,
   color = 'primary',
   children,
 }) => {
-  return <Container color={color}>{children}</Container>;
+  return (
+    <Container className={className} color={color}>
+      {children}
+    </Container>
+  );
 };
 
 export default TitleText;
