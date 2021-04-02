@@ -26,7 +26,7 @@ const Circle: React.FC<CircleProps> = ({
   );
 };
 
-export const CircleIcon = styled.div<{
+const CircleIcon = styled.div<{
   color?: 'lightBlue' | 'orange';
   size?: 'small' | 'medium' | 'large';
 }>`

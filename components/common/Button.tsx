@@ -27,7 +27,7 @@ const Button: React.FC<ButtonProps> = ({
   </StyledButton>
 );
 
-export const StyledButton = styled.button<{
+const StyledButton = styled.button<{
   color?: 'lightBlue' | 'orange';
   size?: 'large';
 }>`
