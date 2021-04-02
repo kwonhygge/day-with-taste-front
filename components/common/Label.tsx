@@ -14,7 +14,7 @@ const Label: React.FC<LabelProps> = ({ className, index }) => {
   );
 };
 
-export const LabelIcon = styled.div`
+const LabelIcon = styled.div`
   padding: 8px 12px;
   font-size: 18px;
   width: 70px;
