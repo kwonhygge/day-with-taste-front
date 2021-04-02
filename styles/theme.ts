@@ -4,14 +4,14 @@ const calcRem = (size: number) => `${size / 16}rem`;
 
 const fontSizes = {
   //  기본 타이틀 사이즈
-  titleSize: calcRem(24),
+  titleSize: '24px',
 
   // 크기별 분류
-  xSmall: calcRem(13),
-  small: calcRem(14),
-  base: calcRem(16),
-  large: calcRem(18),
-  xLarge: calcRem(32),
+  xSmall: '12px',
+  small: '14px',
+  base: '16px',
+  large: '18px',
+  xLarge: '32px',
 };
 
 const colors = {

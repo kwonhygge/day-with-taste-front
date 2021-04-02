@@ -8,3 +8,10 @@ export type User = {
   id: number;
   name: string;
 };
+
+export type Question = {
+  id: number;
+  question: string;
+  answerA: string;
+  answerB: string;
+};

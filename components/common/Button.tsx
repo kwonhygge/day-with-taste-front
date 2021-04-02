@@ -9,21 +9,19 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   onClick?: (event: any) => void;
 };
 
-const Button: React.FC<ButtonProps> = ({
-  color,
-  label,
-  onClick,
-  value,
-  size,
-}) => (
-  <StyledButton
-    onClick={(event) => onClick && onClick(event)}
-    value={value}
-    size={size}
-    color={color}>
-    {label}
-  </StyledButton>
-);
+const Button: React.FC<ButtonProps> = (props) => {
+  const { color, label, onClick, value, size } = props;
+  return (
+    <StyledButton
+      {...props}
+      onClick={(event) => onClick && onClick(event)}
+      value={value}
+      size={size}
+      color={color}>
+      {label}
+    </StyledButton>
+  );
+};
 
 const StyledButton = styled.button<{
   color?: 'lightBlue' | 'orange';
@@ -47,7 +45,7 @@ const StyledButton = styled.button<{
   color: ${({ theme }) => theme.colors.primaryBlue};
   cursor: pointer;
 
-  ${({ color, size }) => {
+  ${({ color }) => {
     if (color === 'lightBlue')
       return css`
         background-color: ${({ theme }) => theme.colors.lightBlue};
@@ -59,6 +57,8 @@ const StyledButton = styled.button<{
         background-color: ${({ theme }) => theme.colors.orange};
         color: #fff;
       `;
+  }}
+  ${({ size }) => {
     if (size === 'large')
       return css`
         width: 280px;
