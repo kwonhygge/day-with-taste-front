@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import SecondaryText from '../common/SecondaryText';
+import Modal from '../common/Modal';
+import Link from 'next/link';
 
 const Container = styled.div`
   height: 100%;
@@ -46,28 +48,41 @@ const GrayButton = styled.button`
   font-weight: bold;
   font-size: 13px;
   line-height: 13px;
+  cursor: pointer;
 `;
 
-const InputMusic = () => (
-  <Container>
-    <UpperContainer>
-      <Header>
-        <SecondaryText style={{ paddingLeft: 24 }}>앰블럼</SecondaryText>
-      </Header>
-      <ContentContainer>
-        <SecondaryText
-          style={{ fontSize: 24, lineHeight: '40px', marginBottom: 100 }}>
-          잠결에 들리는 음악소리.{'\n'}
-          내가 좋아하는 노래였는데... {'\n'}
-          뭐였더라?
-        </SecondaryText>
-        <Input placeholder={'아티스트 이름이나 노래 제목'} />
-      </ContentContainer>
-    </UpperContainer>
-    <ButtonContainer>
-      <GrayButton>곰곰히 생각해보기</GrayButton>
-    </ButtonContainer>
-  </Container>
-);
-
+const InputMusic = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  return (
+    <Container>
+      <UpperContainer>
+        <Header>
+          <SecondaryText style={{ paddingLeft: 24 }}>앰블럼</SecondaryText>
+        </Header>
+        <ContentContainer>
+          <SecondaryText
+            style={{ fontSize: 24, lineHeight: '40px', marginBottom: 100 }}>
+            잠결에 들리는 음악소리.{'\n'}
+            내가 좋아하는 노래였는데... {'\n'}
+            뭐였더라?
+          </SecondaryText>
+          <Input placeholder={'아티스트 이름이나 노래 제목'} />
+        </ContentContainer>
+      </UpperContainer>
+      <ButtonContainer>
+        <GrayButton onClick={() => setIsVisible(true)}>
+          곰곰히 생각해보기
+        </GrayButton>
+        <Modal
+          isVisible={isVisible}
+          width={312}
+          handleModalClosed={() => setIsVisible(false)}>
+          <div style={{ textAlign: 'center' }}>
+            <Link href={'loading/start'}>확인</Link>
+          </div>
+        </Modal>
+      </ButtonContainer>
+    </Container>
+  );
+};
 export default InputMusic;
