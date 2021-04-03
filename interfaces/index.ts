@@ -15,3 +15,11 @@ export type Question = {
   answerA: string;
   answerB: string;
 };
+
+export type Song = {
+  id: number;
+  title: string;
+  url: string;
+  video_id: string;
+  thumbnails: Object;
+};
