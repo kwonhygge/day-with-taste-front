@@ -33,6 +33,11 @@ const HomeTitleText = styled(TitleText)`
   font-weight: bold;
   margin-bottom: 15px;
 `;
+const HomeContentText = styled(PrimaryText)`
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 27px;
+`;
 
 const Home = () => (
   <Container>
@@ -42,7 +47,9 @@ const Home = () => (
       </Header>
       <ContentContainer>
         <HomeTitleText>취향의 하루</HomeTitleText>
-        <PrimaryText>내 영혼의 단짝과 {'\n'} 음악을 나누세요.</PrimaryText>
+        <HomeContentText>
+          내 영혼의 단짝과 {'\n'} 음악을 나누세요.
+        </HomeContentText>
       </ContentContainer>
     </UpperContainer>
     <ButtonContainer>
@@ -51,7 +58,7 @@ const Home = () => (
         style={{ marginBottom: 16 }}
         size={'large'}
       />
-      <Link href={'/'}>
+      <Link href={'/input-music'}>
         <Button label={'시작하기'} color={'orange'} size={'large'} />
       </Link>
     </ButtonContainer>
