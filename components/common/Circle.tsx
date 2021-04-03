@@ -5,25 +5,27 @@ export type CircleProps = React.HTMLAttributes<HTMLElement> & {
   size?: 'small' | 'medium' | 'large';
   backgroundColor?: 'lightBlue' | 'orange';
   icon?: React.ReactNode;
+  clickable?: boolean;
   onClick?: (event: any) => void;
 };
 
 const Circle: React.FC<CircleProps> = (props) => {
-  const { size, backgroundColor, icon, onClick } = props;
+  const { size, backgroundColor, icon, clickable, onClick } = props;
   return (
-    <CircleIcon color={backgroundColor} size={size} {...props}>
-      <span
-        onClick={(event) => onClick && onClick(event)}
-        style={{ cursor: 'pointer' }}>
-        {icon}
-      </span>
+    <CircleIcon
+      backgroundColor={backgroundColor}
+      size={size}
+      clickable={clickable}
+      {...props}>
+      <span onClick={(event) => onClick && onClick(event)}>{icon}</span>
     </CircleIcon>
   );
 };
 
 const CircleIcon = styled.div<{
-  color?: 'lightBlue' | 'orange';
+  backgroundColor?: 'lightBlue' | 'orange';
   size?: 'small' | 'medium' | 'large';
+  clickable?: boolean;
 }>`
   width: 72px;
   height: 72px;
@@ -48,8 +50,18 @@ const CircleIcon = styled.div<{
         height: 110px;
       `;
   }}
-  background-color: ${({ theme, color }) => theme.colors[color]};
+  ${({ theme, backgroundColor }) => {
+    if (backgroundColor === 'lightBlue')
+      return css`
+        background-color: ${theme.colors.lightBlue};
+      `;
+    if (backgroundColor === 'orange')
+      return css`
+        background-color: ${theme.colors.orange};
+      `;
+  }}
   border-radius: 50%;
+  cursor: ${({ clickable }) => (clickable ? 'pointer' : 'initial')};
 `;
 
 export default Circle;
