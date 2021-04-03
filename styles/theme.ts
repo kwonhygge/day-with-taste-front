@@ -1,7 +1,5 @@
 import { DefaultTheme } from 'styled-components';
 
-const calcRem = (size: number) => `${size / 16}rem`;
-
 const fontSizes = {
   //  기본 타이틀 사이즈
   titleSize: '24px',
