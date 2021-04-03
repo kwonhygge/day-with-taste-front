@@ -10,8 +10,6 @@ const Container = styled.div<{ color: 'primary' | 'white' }>`
   font-family: 'Noto Sans CJK KR';
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
-  line-height: 27px;
   white-space: pre-line;
   color: ${({ color, theme }) =>
     color === 'primary' ? theme.colors.primaryBlue : '#fff'};
