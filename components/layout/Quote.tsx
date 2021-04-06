@@ -1,9 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import Circle from '../common/Circle';
-import Link from 'next/link';
-import Button from '../common/Button';
-import TitleText from '../common/TitleText';
 import PrimaryText from '../common/PrimaryText';
 import SecondaryText from '../common/SecondaryText';
 
@@ -13,12 +10,11 @@ type QuoteProps = {
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 640px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-const UpperContainer = styled.div``;
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;

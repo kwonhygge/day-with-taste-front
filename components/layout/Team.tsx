@@ -1,11 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Circle from '../common/Circle';
-import Link from 'next/link';
-import Button from '../common/Button';
 import TitleText from '../common/TitleText';
 import PrimaryText from '../common/PrimaryText';
-import { ShareIcon, UsersIcon } from '../../public/svg';
 
 const Container = styled.div`
   height: 100%;
@@ -37,11 +34,13 @@ const ItemTitleText = styled(PrimaryText)`
   line-height: 18px;
   font-weight: bold;
   margin-bottom: 8px;
+  color: #fff;
 `;
 const ItemContentText = styled(PrimaryText)`
   font-size: ${({ theme }) => theme.fontSizes.large};
   line-height: 27px;
   margin-bottom: 4px;
+  color: #fff;
 `;
 
 const Team = () => (
@@ -51,8 +50,10 @@ const Team = () => (
         <Circle size={'small'} backgroundColor={'orange'} />
       </Header>
       <TitleContainer>
-        <TitleText>울프 디벨로퍼스의</TitleText>
-        <TitleText color={'white'}>프로젝트 팀 음취음취취</TitleText>
+        <TitleText color={'white'}>울프 디벨로퍼스의</TitleText>
+        <TitleText style={{ color: '#FF844B' }}>
+          프로젝트 팀 음취음취취
+        </TitleText>
       </TitleContainer>
     </UpperContainer>
     <ListContainer>

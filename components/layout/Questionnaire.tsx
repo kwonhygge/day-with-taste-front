@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
 import { Question } from '../../interfaces';
@@ -48,8 +49,26 @@ const Questionnaire = ({ item }: Props) => (
       <QuestionText>{item.question}</QuestionText>
     </UpperContainer>
     <ButtonContainer>
-      <AnswerButton label={item.answerA} />
-      <AnswerButton label={item.answerB} />
+      <AnswerButton
+        label={item.answerA}
+        onClick={() => {
+          if (item.id === 11) {
+            Router.push('/loading/end');
+          } else {
+            Router.push(`/questionnaires/${item.id + 1}`);
+          }
+        }}
+      />
+      <AnswerButton
+        label={item.answerB}
+        onClick={() => {
+          if (item.id === 11) {
+            Router.push('/loading/end');
+          } else {
+            Router.push(`/questionnaires/${item.id + 1}`);
+          }
+        }}
+      />
     </ButtonContainer>
   </QuestionnaireContainer>
 );

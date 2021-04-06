@@ -1,2 +1,2 @@
 export { default as ShareIcon } from './Share';
-export { default as UsersIcon } from './Users';
+export { default as TeamIcon } from './Team';
