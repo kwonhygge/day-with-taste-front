@@ -90,18 +90,32 @@ const Result = () => {
           />
           {isExpanded && (
             <IconContainer>
+              <Link
+                  href={`http://twitter.com/share?url=${encodeURIComponent(
+                      'www.naver.com'
+                  )}&text=나의 취향의 하루 공유하기`}>
+                <a target="_blank" rel="noreferrer">
               <Circle
                 icon={<LinkIcon />}
                 clickable={true}
                 backgroundColor={'lightBlue'}
                 style={{ marginBottom: 24 }}
               />
+                </a>
+              </Link>
+              <Link
+                  href={`http://www.facebok.com/sharer.php?u=${encodeURIComponent(
+                      'www.naver.com'
+                  )}`}>
+                <a target="_blank" rel="noreferrer">
               <Circle
                 icon={<FacebookIcon />}
                 clickable={true}
                 backgroundColor={'blue'}
                 style={{ marginBottom: 24 }}
               />
+                </a>
+                </Link>
               <Circle
                 icon={<KakaoIcon />}
                 clickable={true}
