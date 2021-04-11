@@ -6,7 +6,6 @@ import { AnyAction } from 'redux';
 
 export interface SongsState {
   songs: Song[] | null;
-  keyword: string | null;
   result: string | null;
   inputSong: string | null;
   outputSong: Object | null;
@@ -16,7 +15,6 @@ export interface SongsState {
 
 const initialState: SongsState = {
   songs: null,
-  keyword: null,
   result: null,
   inputSong: null,
   outputSong: null,
@@ -32,6 +30,7 @@ const POST_RESULT = 'POST_RESULT' as const;
 const POST_RESULT_REQUEST = 'POST_RESULT_REQUEST' as const;
 const POST_RESULT_SUCCESS = 'POST_RESULT_SUCCESS' as const;
 const POST_RESULT_ERROR = 'POST_RESULT_ERROR' as const;
+const SET_RESULT = 'SET_RESULT' as const;
 
 export const getSongs = (keyword: string) => ({
   type: GET_SONGS,
@@ -61,6 +60,10 @@ export const postResultError = (e: AxiosError) => ({
   type: POST_RESULT_ERROR,
   payload: e,
 });
+export const setResult = (result: string) => ({
+  type: SET_RESULT,
+  payload: result,
+});
 
 type SongsAction =
   | ReturnType<typeof getSongsRequest>
@@ -68,7 +71,8 @@ type SongsAction =
   | ReturnType<typeof getSongsError>
   | ReturnType<typeof postResultRequest>
   | ReturnType<typeof postResultSuccess>
-  | ReturnType<typeof postResultError>;
+  | ReturnType<typeof postResultError>
+  | ReturnType<typeof setResult>;
 
 const songReducer = (
   state: SongsState = initialState,
@@ -116,6 +120,11 @@ const songReducer = (
         loading: false,
         outputSong: null,
         error: action.payload,
+      };
+    case SET_RESULT:
+      return {
+        ...state,
+        result: action.payload,
       };
     default:
       return state;
