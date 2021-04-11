@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import testReducer from './testReducer';
-import songs from './songReducer';
+import songReducer from './songReducer';
 
 const rootReducer = combineReducers({
   testReducer,
-  songs,
+  songReducer,
 });
 
 export default rootReducer;
