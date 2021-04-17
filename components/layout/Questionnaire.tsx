@@ -3,9 +3,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Question } from '../../interfaces';
 import Button from '../common/Button';
-import Circle from '../common/Circle';
 import Label from '../common/Label';
 import TitleText from '../common/TitleText';
+import {  SmallLogoIcon } from '../../public/svg';
 
 type Props = {
   item: Question;
@@ -21,8 +21,9 @@ const QuestionnaireContainer = styled.div`
 
 const UpperContainer = styled.div``;
 
-const HeadCircle = styled(Circle)`
-  margin: 0 auto;
+const HeadCircle = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const ProgressLabel = styled(Label)`
@@ -44,7 +45,9 @@ const AnswerButton = styled(Button)`
 const Questionnaire = ({ item }: Props) => (
   <QuestionnaireContainer>
     <UpperContainer>
-      <HeadCircle size="small" />
+      <HeadCircle>
+        <SmallLogoIcon color={'orange'} />
+      </HeadCircle>
       <ProgressLabel index={item.id} />
       <QuestionText>{item.question}</QuestionText>
     </UpperContainer>
