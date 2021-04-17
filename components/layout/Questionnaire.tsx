@@ -5,7 +5,7 @@ import { Question } from '../../interfaces';
 import Button from '../common/Button';
 import Label from '../common/Label';
 import TitleText from '../common/TitleText';
-import {  SmallLogoIcon } from '../../public/svg';
+import { SmallLogoIcon } from '../../public/svg';
 
 type Props = {
   item: Question;

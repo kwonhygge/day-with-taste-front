@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Circle from '../common/Circle';
 import Link from 'next/link';
 import TitleText from '../common/TitleText';
-import { ShareIcon, TeamIcon } from '../../public/svg';
+import {
+  FacebookIcon,
+  KakaoIcon,
+  LinkIcon,
+  ShareIcon,
+  SmallLogoIcon,
+  TeamIcon,
+  TwitterIcon,
+} from '../../public/svg';
 import ResultBox from './ResultBox';
 
 const Container = styled.div`
@@ -23,6 +31,13 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
   padding-right: 24px;
 `;
+const CircleContainer = styled.div`
+  position: relative;
+`;
+const IconContainer = styled.div`
+  position: absolute;
+  top: -384px;
+`;
 const Header = styled.div`
   width: 100%;
   height: 56px;
@@ -33,11 +48,12 @@ const Header = styled.div`
 `;
 
 const Result = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
   return (
     <Container>
       <UpperContainer>
         <Header>
-          <Circle size={'small'} backgroundColor={'orange'} />
+          <SmallLogoIcon color={'lightBlue'} />
         </Header>
         <ContentContainer>
           <TitleText color={'white'} style={{ marginBottom: 32 }}>
@@ -55,13 +71,51 @@ const Result = () => {
             style={{ marginRight: 16 }}
           />
         </Link>
-        <Link href={'/'}>
+
+        <CircleContainer>
           <Circle
-            icon={<ShareIcon />}
+            icon={
+              <span
+                onClick={() => {
+                  setIsExpanded((prevState) => !prevState);
+                }}>
+                <ShareIcon />
+              </span>
+            }
             clickable={true}
             backgroundColor={'orange'}
+            onClick={() => {
+              setIsExpanded((prevState) => !prevState);
+            }}
           />
-        </Link>
+          {isExpanded && (
+            <IconContainer>
+              <Circle
+                icon={<LinkIcon />}
+                clickable={true}
+                backgroundColor={'lightBlue'}
+                style={{ marginBottom: 24 }}
+              />
+              <Circle
+                icon={<FacebookIcon />}
+                clickable={true}
+                backgroundColor={'blue'}
+                style={{ marginBottom: 24 }}
+              />
+              <Circle
+                icon={<KakaoIcon />}
+                clickable={true}
+                backgroundColor={'yellow'}
+                style={{ marginBottom: 24 }}
+              />
+              <Circle
+                icon={<TwitterIcon />}
+                clickable={true}
+                backgroundColor={'skyBlue'}
+              />
+            </IconContainer>
+          )}
+        </CircleContainer>
       </ButtonContainer>
     </Container>
   );
