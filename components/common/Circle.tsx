@@ -53,26 +53,36 @@ const CircleIcon = styled.div<{
       `;
   }}
   ${({ theme, backgroundColor }) => {
-    if (backgroundColor === 'lightBlue')
-      return css`
+    return (
+      backgroundColor === 'lightBlue' &&
+      css`
         background-color: ${theme.colors.lightBlue};
-      `;
-    if (backgroundColor === 'orange')
-      return css`
+      `
+    );
+    return (
+      backgroundColor === 'orange' &&
+      css`
         background-color: ${theme.colors.orange};
-      `;
-    if (backgroundColor === 'blue')
-      return css`
+      `
+    );
+    return (
+      backgroundColor === 'blue' &&
+      css`
         background-color: #227aee;
-      `;
-    if (backgroundColor === 'yellow')
-      return css`
+      `
+    );
+    return (
+      backgroundColor === 'yellow' &&
+      css`
         background-color: #fddf32;
-      `;
-    if (backgroundColor === 'skyBlue')
-      return css`
+      `
+    );
+    return (
+      backgroundColor === 'skyBlue' &&
+      css`
         background-color: #2aa3ef;
-      `;
+      `
+    );
   }}
   border-radius: 50%;
   cursor: ${({ clickable }) => (clickable ? 'pointer' : 'initial')};

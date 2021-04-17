@@ -8,7 +8,7 @@ const StartQuestionPage = () => {
     Router.push('/questionnaires/1');
   };
   useEffect(() => {
-    window.setTimeout(moveToNextPage, 1000);
+    window.setTimeout(moveToNextPage, 1500);
   }, []);
   return (
     <Layout>
