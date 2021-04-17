@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { Song } from '../interfaces';
+import { Song, Songs } from '../interfaces';
 
 const BACK_API_URL = 'https://day-with-taste.herokuapp.com';
 
 export default class SongService {
-  public static async getSongs(keyword: string): Promise<Song[]> {
-    const response = await axios.get<Song[]>(`${BACK_API_URL}/youtube`, {
+  public static async getSongs(keyword: string): Promise<Songs> {
+    const response = await axios.get<Songs>(`${BACK_API_URL}/youtube`, {
       params: { keyword },
     });
 

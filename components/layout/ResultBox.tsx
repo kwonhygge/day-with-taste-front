@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PrimaryText from '../common/PrimaryText';
 import Caret from '../../public/svg/Caret';
 
-const Container = styled.div``;
+const Container = styled.main``;
 const Header = styled.div`
   display: flex;
   background-color: #fff;
@@ -23,7 +23,7 @@ const MusicInfoHeaderText = styled(PrimaryText)`
   line-height: 21px;
   color: #0a0d25;
 `;
-const Footer = styled.div`
+const Footer = styled.footer`
   cursor: pointer;
   padding: 24px 32px;
   background: ${({ theme }) => theme.colors.lightBlue};

@@ -3,12 +3,10 @@ import React, { useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import PrimaryText from '../common/PrimaryText';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  setMusic as setMusicAction,
-  SongsState,
-} from '../../reducers/songReducer';
+import { setMusic as setMusicAction } from '../../reducers/songReducer';
+import { RootState } from '../../reducers';
 
-const Container = styled.div`
+const Container = styled.main`
   width: 100%;
   height: 100%;
   background: #f1f6fa;
@@ -73,7 +71,7 @@ const FooterButton = styled.button`
 `;
 
 export const PickSong = () => {
-  const songs = useSelector((state: SongsState) => state.songReducer.songs);
+  const { songs } = useSelector((state: RootState) => state.songs);
   const reducedSongList = useMemo(() => {
     if (songs) {
       return [...songs.item].slice(0, 5);
@@ -87,7 +85,7 @@ export const PickSong = () => {
       <SongContainer>
         {reducedSongList &&
           reducedSongList.map((el) => (
-            <RowContainer>
+            <RowContainer key={el.title}>
               <ThumbnailContainer />
               <SongTitleText style={{ width: 140 }}>{el.title}</SongTitleText>
             </RowContainer>

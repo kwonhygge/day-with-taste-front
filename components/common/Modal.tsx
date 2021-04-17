@@ -9,7 +9,7 @@ export type ModalProps = {
   children?: React.ReactElement;
 };
 
-const Container = styled.div`
+const Container = styled.section`
   position: fixed;
   width: 100%;
   height: 100%;

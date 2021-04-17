@@ -6,7 +6,7 @@ import PrimaryText from '../common/PrimaryText';
 import { LeftArrowIcon, SmallLogoIcon } from '../../public/svg';
 import Link from 'next/link';
 
-const Container = styled.div`
+const Container = styled.main`
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -74,7 +74,7 @@ const Team = () => (
         </ItemContainer>
         <ItemContainer>
           <ItemTitleText>Front-End</ItemTitleText>
-          <ItemContentText>Hyenmeoung Nam</ItemContentText>
+          <ItemContentText>Nam Hyunmyung</ItemContentText>
           <ItemContentText>Hyeongyeong Kwon</ItemContentText>
         </ItemContainer>
         <ItemContainer>
