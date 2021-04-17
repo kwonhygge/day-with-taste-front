@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactNode } from 'react';
+import React, { HTMLAttributes, ReactNode, useEffect } from 'react';
 import Head from 'next/head';
 import styled, { css } from 'styled-components';
 
@@ -36,6 +36,15 @@ const LayoutInnerContainer = styled.div<{ backgroundColor?: string }>`
 
 const Layout = (props: LayoutProps) => {
   const { children, color } = props;
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://developers.kakao.com/sdk/js/kakao.js';
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
   return (
     <LayoutContainer>
       <LayoutInnerContainer backgroundColor={color} {...props}>

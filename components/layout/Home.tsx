@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import Button from '../common/Button';
 import TitleText from '../common/TitleText';
 import PrimaryText from '../common/PrimaryText';
 import { LogoIcon } from '../../public/svg';
+import { getVisits } from '../../reducers/songReducer';
+import { useDispatch } from 'react-redux';
 
 const Container = styled.div`
   height: 100%;
@@ -33,28 +35,37 @@ const HomeContentText = styled(PrimaryText)`
   line-height: 27px;
 `;
 
-const Home = () => (
-  <Container>
-    <UpperContainer>
-      <ContentContainer>
-        <LogoIcon />
-        <HomeTitleText>취향의 하루</HomeTitleText>
-        <HomeContentText>
-          내 영혼의 단짝과 {'\n'} 음악을 나누세요.
-        </HomeContentText>
-      </ContentContainer>
-    </UpperContainer>
-    <ButtonContainer>
-      <Button
-        label={'친구의 하루 물어보기'}
-        style={{ marginBottom: 16 }}
-        size={'large'}
-      />
-      <Link href={'/loading/start-day'}>
-        <Button label={'시작하기'} color={'orange'} size={'large'} />
-      </Link>
-    </ButtonContainer>
-  </Container>
-);
-
+const Home = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    try {
+      dispatch(getVisits());
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+  return (
+    <Container>
+      <UpperContainer>
+        <ContentContainer>
+          <LogoIcon />
+          <HomeTitleText>취향의 하루</HomeTitleText>
+          <HomeContentText>
+            내 영혼의 단짝과 {'\n'} 음악을 나누세요.
+          </HomeContentText>
+        </ContentContainer>
+      </UpperContainer>
+      <ButtonContainer>
+        <Button
+          label={'친구의 하루 물어보기'}
+          style={{ marginBottom: 16 }}
+          size={'large'}
+        />
+        <Link href={'/loading/start-day'}>
+          <Button label={'시작하기'} color={'orange'} size={'large'} />
+        </Link>
+      </ButtonContainer>
+    </Container>
+  );
+};
 export default Home;

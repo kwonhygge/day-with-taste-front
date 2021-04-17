@@ -1,8 +1,12 @@
 import Link from 'next/link';
-import React, { useCallback, useState } from 'react';
-import { Song } from '../../interfaces';
+import React, { useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import PrimaryText from '../common/PrimaryText';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setMusic as setMusicAction,
+  SongsState,
+} from '../../reducers/songReducer';
 
 const Container = styled.div`
   width: 100%;
@@ -68,24 +72,29 @@ const FooterButton = styled.button`
   align-items: center;
 `;
 
-export const PickSong = (props: { songList: Song[] }) => {
-  const { songList } = props;
-  const [isSelected, setIsSelected] = useState(true);
+export const PickSong = () => {
+  const songs = useSelector((state: SongsState) => state.songReducer.songs);
+  const reducedSongList = useMemo(() => {
+    if (songs) {
+      return [...songs.item].slice(0, 5);
+    }
+  }, [songs]);
+  const [isSelected, setIsSelected] = useState(false);
+  const dispatch = useDispatch();
 
   const SongList = useCallback(() => {
     return (
       <SongContainer>
-        {songList.map((el) => (
-          <RowContainer>
-            <ThumbnailContainer />
-            <SongTitleText style={{ width: 140 }}>
-              최정윤 (Choi Jung yoon) - Dance with me baby [MV]
-            </SongTitleText>
-          </RowContainer>
-        ))}
+        {reducedSongList &&
+          reducedSongList.map((el) => (
+            <RowContainer>
+              <ThumbnailContainer />
+              <SongTitleText style={{ width: 140 }}>{el.title}</SongTitleText>
+            </RowContainer>
+          ))}
       </SongContainer>
     );
-  }, []);
+  }, [reducedSongList]);
   return (
     <>
       <Container>
@@ -107,7 +116,11 @@ export const PickSong = (props: { songList: Song[] }) => {
                 <PrimaryText>이게 아냐...</PrimaryText>
               </FooterButton>
               <Link href={'loading/start-question'}>
-                <FooterButton style={{ backgroundColor: '#FF844B' }}>
+                <FooterButton
+                  style={{ backgroundColor: '#FF844B' }}
+                  onClick={() => {
+                    dispatch(setMusicAction('video_id'));
+                  }}>
                   <PrimaryText style={{ color: '#fff' }}>
                     이 노래야!
                   </PrimaryText>
