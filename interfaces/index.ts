@@ -23,3 +23,8 @@ export type Song = {
   video_id: string;
   thumbnails: Object;
 };
+
+export type Songs = {
+  item: Song[];
+  nextPage: string;
+};

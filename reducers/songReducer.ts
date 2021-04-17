@@ -1,4 +1,4 @@
-import { Song } from '../interfaces';
+import { Songs } from '../interfaces';
 import { AxiosError } from 'axios';
 import { put, call, takeEvery } from 'redux-saga/effects';
 import SongService from '../services/songService';
@@ -6,7 +6,7 @@ import { AnyAction } from 'redux';
 import CountService from '../services/countService';
 
 export interface SongsState {
-  songs: Song[] | null;
+  songs: Songs | null;
   music: string | null;
   result: string | null;
   inputSong: string | null;
@@ -54,7 +54,7 @@ export const getSongs = (keyword: string) => ({
   payload: { keyword },
 });
 export const getSongsRequest = () => ({ type: GET_SONGS_REQUEST });
-export const getSongsSuccess = (songs: Song[]) => ({
+export const getSongsSuccess = (songs: Songs) => ({
   type: GET_SONGS_SUCCESS,
   payload: songs,
 });
@@ -203,7 +203,7 @@ function* getCounts() {
 function* getSongsSaga(action: GetSagaAction) {
   try {
     yield put({ type: GET_SONGS_REQUEST });
-    const songs: Song[] = yield call(
+    const songs: Songs = yield call(
       SongService.getSongs,
       action.payload.keyword
     );

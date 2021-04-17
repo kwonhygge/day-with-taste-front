@@ -8,7 +8,7 @@ import { LogoIcon } from '../../public/svg';
 import { getVisits } from '../../reducers/songReducer';
 import { useDispatch } from 'react-redux';
 
-const Container = styled.div`
+const Container = styled.main`
   height: 100%;
   display: flex;
   flex-direction: column;
