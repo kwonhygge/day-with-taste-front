@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 export type CircleProps = React.HTMLAttributes<HTMLElement> & {
   size?: 'small' | 'medium' | 'large';
-  backgroundColor?: 'lightBlue' | 'orange';
+  backgroundColor?: 'lightBlue' | 'orange' | 'blue' | 'yellow' | 'skyBlue';
   icon?: React.ReactNode;
   clickable?: boolean;
   onClick?: (event: any) => void;
@@ -23,7 +23,7 @@ const Circle: React.FC<CircleProps> = (props) => {
 };
 
 const CircleIcon = styled.div<{
-  backgroundColor?: 'lightBlue' | 'orange';
+  backgroundColor?: 'lightBlue' | 'orange' | 'blue' | 'yellow' | 'skyBlue';
   size?: 'small' | 'medium' | 'large';
   clickable?: boolean;
 }>`
@@ -32,6 +32,8 @@ const CircleIcon = styled.div<{
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 2px 8px rgba(10, 13, 37, 0.2),
+    0px 6px 16px rgba(10, 13, 37, 0.2);
   background-color: ${({ theme }) => theme.colors.orange};
   ${({ size }) => {
     if (size === 'small')
@@ -51,14 +53,36 @@ const CircleIcon = styled.div<{
       `;
   }}
   ${({ theme, backgroundColor }) => {
-    if (backgroundColor === 'lightBlue')
-      return css`
+    return (
+      backgroundColor === 'lightBlue' &&
+      css`
         background-color: ${theme.colors.lightBlue};
-      `;
-    if (backgroundColor === 'orange')
-      return css`
+      `
+    );
+    return (
+      backgroundColor === 'orange' &&
+      css`
         background-color: ${theme.colors.orange};
-      `;
+      `
+    );
+    return (
+      backgroundColor === 'blue' &&
+      css`
+        background-color: #227aee;
+      `
+    );
+    return (
+      backgroundColor === 'yellow' &&
+      css`
+        background-color: #fddf32;
+      `
+    );
+    return (
+      backgroundColor === 'skyBlue' &&
+      css`
+        background-color: #2aa3ef;
+      `
+    );
   }}
   border-radius: 50%;
   cursor: ${({ clickable }) => (clickable ? 'pointer' : 'initial')};

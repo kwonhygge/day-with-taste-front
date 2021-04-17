@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Question } from '../../interfaces';
 import Button from '../common/Button';
-import Circle from '../common/Circle';
 import Label from '../common/Label';
 import TitleText from '../common/TitleText';
+import { SmallLogoIcon } from '../../public/svg';
 import { setResult as setResultAction } from '../../reducers/songReducer';
 
 type Props = {
@@ -23,8 +23,9 @@ const QuestionnaireContainer = styled.div`
 
 const UpperContainer = styled.div``;
 
-const HeadCircle = styled(Circle)`
-  margin: 0 auto;
+const HeadCircle = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const ProgressLabel = styled(Label)`
@@ -66,7 +67,9 @@ const Questionnaire = ({ item }: Props) => {
   return (
     <QuestionnaireContainer>
       <UpperContainer>
-        <HeadCircle size="small" />
+        <HeadCircle>
+        <SmallLogoIcon color={'orange'} />
+      </HeadCircle>
         <ProgressLabel index={item.id} />
         <QuestionText>{item.question}</QuestionText>
       </UpperContainer>

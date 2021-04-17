@@ -3,12 +3,12 @@ import Quote from '../../components/layout/Quote';
 import { useEffect } from 'react';
 import Router from 'next/router';
 
-const StartLoadingPage = () => {
+const StartQuestionPage = () => {
   const moveToNextPage = () => {
     Router.push('/questionnaires/1');
   };
   useEffect(() => {
-    window.setTimeout(moveToNextPage, 1000);
+    window.setTimeout(moveToNextPage, 1500);
   }, []);
   return (
     <Layout>
@@ -17,4 +17,4 @@ const StartLoadingPage = () => {
   );
 };
 
-export default StartLoadingPage;
+export default StartQuestionPage;

@@ -23,11 +23,11 @@ const ModalContainer = styled.div<{ width: number }>`
   left: 50%;
   transform: translate(-50%, -50%);
   width: ${({ width }) => `${width}px`};
-  background: #fff;
   box-sizing: border-box;
-  padding-bottom: 24px;
   overflow-y: auto;
+  background-color: #f1f6fa;
   z-index: 150;
+  border-radius: 30px;
 `;
 const ContentContainer = styled.div``;
 
