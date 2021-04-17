@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import SecondaryText from '../common/SecondaryText';
 import Modal from '../common/Modal';
-import Link from 'next/link';
+import TitleText from '../common/TitleText';
+import Button from '../common/Button';
+import { useDispatch } from 'react-redux';
+import { getSongs } from '../../reducers/songReducer';
+import { PickSong } from './PickSong';
+import { SmallLogoIcon } from '../../public/svg';
 
 const Container = styled.div`
   height: 100%;
@@ -22,64 +26,68 @@ const Header = styled.div`
   width: 100%;
   height: 56px;
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 38px;
-  border-bottom: 2px solid #ebebeb;
+  margin-bottom: 32px;
 `;
 const Input = styled.input`
   width: 311px;
   height: 40px;
-  background: #f5f5f5;
   padding-left: 17px;
-  font-family: 'Roboto';
+  font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
-  color: #454d58;
-`;
-const GrayButton = styled.button`
-  width: 312px;
-  height: 50px;
-  border-radius: 5px;
-  background: #c4c4c4;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 13px;
-  cursor: pointer;
+  color: #427d96;
+  background: #ffffff;
+  border-radius: 30px;
 `;
 
 const InputMusic = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [keyword, setKeyword] = useState('');
+  const dispatch = useDispatch();
+  const handleClick = async () => {
+    try {
+      await dispatch(getSongs(keyword));
+      setIsVisible(true);
+    } catch (e) {
+      console.log(e);
+    } finally {
+    }
+  };
+
   return (
     <Container>
       <UpperContainer>
         <Header>
-          <SecondaryText style={{ paddingLeft: 24 }}>앰블럼</SecondaryText>
+          <SmallLogoIcon color={'orange'} />
         </Header>
         <ContentContainer>
-          <SecondaryText
-            style={{ fontSize: 24, lineHeight: '40px', marginBottom: 100 }}>
+          <TitleText style={{ marginBottom: 108 }}>
             잠결에 들리는 음악소리.{'\n'}
             내가 좋아하는 노래였는데... {'\n'}
             뭐였더라?
-          </SecondaryText>
-          <Input placeholder={'아티스트 이름이나 노래 제목'} />
+          </TitleText>
+          <Input
+            placeholder={'아티스트 이름이나 노래 제목'}
+            onChange={(e) => setKeyword(e.target.value)}
+          />
         </ContentContainer>
       </UpperContainer>
       <ButtonContainer>
-        <GrayButton onClick={() => setIsVisible(true)}>
+        <Button
+          onClick={() => handleClick()}
+          label={'곰곰이 생각해보기'}
+          color={'orange'}>
           곰곰히 생각해보기
-        </GrayButton>
+        </Button>
         <Modal
           isVisible={isVisible}
           width={312}
           handleModalClosed={() => setIsVisible(false)}>
-          <div style={{ textAlign: 'center' }}>
-            <Link href={'loading/start'}>확인</Link>
-          </div>
+          <PickSong />
         </Modal>
       </ButtonContainer>
     </Container>

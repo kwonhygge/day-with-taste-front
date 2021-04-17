@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 const store = configureStore();
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+    const store = configureStore();
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>

@@ -65,6 +65,11 @@ const StyledButton = styled.button<{
         padding-left: 48px;
       `;
   }}
+  
+  &:disabled{
+    color: #ABCAD7;
+   background-color: ${({ theme }) => theme.colors.lightBlue};
+  }
 `;
 
 export default Button;
