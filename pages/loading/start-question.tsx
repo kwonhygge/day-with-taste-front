@@ -3,7 +3,7 @@ import Quote from '../../components/layout/Quote';
 import { useEffect } from 'react';
 import Router from 'next/router';
 
-const StartLoadingPage = () => {
+const StartQuestionPage = () => {
   const moveToNextPage = () => {
     Router.push('/questionnaires/1');
   };
@@ -17,4 +17,4 @@ const StartLoadingPage = () => {
   );
 };
 
-export default StartLoadingPage;
+export default StartQuestionPage;
