@@ -8,7 +8,7 @@ const EndLoadingPage = () => {
     Router.push('/result');
   };
   useEffect(() => {
-    window.setTimeout(moveToNextPage, 1000);
+    window.setTimeout(moveToNextPage, 1500);
   }, []);
 
   return (
