@@ -5,6 +5,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withBundleAnalyzer({
     target: 'serverless',
+    env: {
+        kakaoKey: 'f8c9abf3ec15c3b736dfff525b062713',
+    },
 
     webpack(conf) {
         conf.module.rules.push({
