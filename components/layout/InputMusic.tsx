@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Modal from '../common/Modal';
 import TitleText from '../common/TitleText';
 import Button from '../common/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSongs, SongsState } from '../../reducers/songReducer';
+import { useDispatch } from 'react-redux';
+import { getSongs } from '../../reducers/songReducer';
 import { PickSong } from './PickSong';
 import { SmallLogoIcon } from '../../public/svg';
 
@@ -46,12 +46,16 @@ const Input = styled.input`
 
 const InputMusic = () => {
   const [isVisible, setIsVisible] = useState(false);
-  console.log(useSelector((state: SongsState) => state.songReducer.songs));
   const [keyword, setKeyword] = useState('');
   const dispatch = useDispatch();
-  const handleClick = () => {
-    dispatch(getSongs(keyword));
-    setIsVisible(true);
+  const handleClick = async () => {
+    try {
+      await dispatch(getSongs(keyword));
+      setIsVisible(true);
+    } catch (e) {
+      console.log(e);
+    } finally {
+    }
   };
 
   return (
@@ -83,45 +87,7 @@ const InputMusic = () => {
           isVisible={isVisible}
           width={312}
           handleModalClosed={() => setIsVisible(false)}>
-          <PickSong
-            songList={[
-              {
-                id: 343434,
-                title: '제목',
-                url: 'asdf',
-                video_id: 'asdd',
-                thumbnails: {},
-              },
-              {
-                id: 343434,
-                title: '제목',
-                url: 'asdf',
-                video_id: 'asdd',
-                thumbnails: {},
-              },
-              {
-                id: 343434,
-                title: '제목',
-                url: 'asdf',
-                video_id: 'asdd',
-                thumbnails: {},
-              },
-              {
-                id: 343434,
-                title: '제목',
-                url: 'asdf',
-                video_id: 'asdd',
-                thumbnails: {},
-              },
-              {
-                id: 343434,
-                title: '제목',
-                url: 'asdf',
-                video_id: 'asdd',
-                thumbnails: {},
-              },
-            ]}
-          />
+          <PickSong />
         </Modal>
       </ButtonContainer>
     </Container>
