@@ -35,7 +35,7 @@ const POST_RESULT_ERROR = 'POST_RESULT_ERROR' as const;
 
 export const getSongs = (keyword: string) => ({
   type: GET_SONGS,
-  payload: keyword,
+  payload: {keyword},
 });
 export const getSongsRequest = () => ({ type: GET_SONGS_REQUEST });
 export const getSongsSuccess = (songs: Song[]) => ({
@@ -133,7 +133,7 @@ interface GetSagaAction extends AnyAction {
 function* getSongsSaga(action: GetSagaAction) {
   try {
     yield put({ type: GET_SONGS_REQUEST });
-    const songs: Song[] = yield call(SongService.getSongs, action.payload);
+    const songs: Song[] = yield call(SongService.getSongs, action.payload.keyword);
     yield put({
       type: GET_SONGS_SUCCESS,
       payload: songs,
