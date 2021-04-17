@@ -18,6 +18,9 @@ const colors = {
   orange: '#FF844B',
   gray: '#C4C4C4',
   lightGray: '#F5F5F5',
+  blue: '#227aee',
+  yellow: '#fddf32',
+  skyBlue: '#2aa3ef',
 };
 
 //TODO margin & padding도 설정

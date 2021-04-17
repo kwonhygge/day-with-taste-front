@@ -8,7 +8,7 @@ type QuoteProps = {
   themeColor?: 'light' | 'dark';
 };
 
-const Container = styled.div`
+const Container = styled.main`
   width: 100%;
   height: 640px;
   display: flex;
@@ -20,7 +20,6 @@ const ContentContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
 const TitlePrimaryText = styled(PrimaryText)<{ themeColor?: 'light' | 'dark' }>`
   margin: 40px 0px 16px 0px;
   text-align: center;
