@@ -5,8 +5,13 @@ import Button from '../common/Button';
 import TitleText from '../common/TitleText';
 import PrimaryText from '../common/PrimaryText';
 import { LogoIcon } from '../../public/svg';
-import { getVisits } from '../../reducers/songReducer';
+import {
+  getRecommendation,
+  getSongs,
+  postResult,
+} from '../../reducers/songReducer';
 import { useDispatch } from 'react-redux';
+import CountService from '../../services/countService';
 
 const Container = styled.main`
   height: 100%;
@@ -39,11 +44,37 @@ const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     try {
-      dispatch(getVisits());
+      CountService.getCounts();
     } catch (e) {
       console.log(e);
     }
   }, []);
+
+  // const getSongsDispatch = async () => {
+  //   console.log('called');
+  //   dispatch(getSongs('조유리'));
+  // };
+
+  // const postResultDispatch = async () => {
+  //   console.log('called');
+  //   dispatch(
+  //     postResult({
+  //       result: '11100011100',
+  //       url:
+  //         'https://www.last.fm/music/%EA%B0%80%EC%9D%B8/_/%ED%94%BC%EC%96%B4%EB%82%98',
+  //       title: '피어나',
+  //       artist: '가인',
+  //       image:
+  //         'https://lastfm.freetls.fastly.net/i/u/64s/2a96cbd8b46e442fc41c2b86b821562f.png',
+  //     })
+  //   );
+  // };
+
+  // const getRecommendationDispatch = async () => {
+  //   console.log('called');
+  //   dispatch(getRecommendation('14knqqkogj'));
+  // };
+
   return (
     <Container>
       <UpperContainer>
@@ -56,6 +87,9 @@ const Home = () => {
         </ContentContainer>
       </UpperContainer>
       <ButtonContainer>
+        {/* <button onClick={() => getSongsDispatch()}>hey!!</button>
+        <button onClick={() => postResultDispatch()}>hey!!!</button>
+        <button onClick={() => getRecommendationDispatch()}>hey!!!!</button> */}
         <Button
           label={'친구의 하루 물어보기'}
           style={{ marginBottom: 16 }}
