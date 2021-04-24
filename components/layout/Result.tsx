@@ -16,9 +16,9 @@ import {
 import ResultBox from './ResultBox';
 import PrimaryText from '../common/PrimaryText';
 import { useSelector } from 'react-redux';
-import { SongsState } from '../../reducers/songReducer';
+import { RootState } from '../../reducers';
 
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -65,9 +65,7 @@ const Header = styled.div`
 const Result = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  const outputSong = useSelector(
-    (state: SongsState) => state.songReducer.outputSong
-  );
+  const outputSong = useSelector((state: RootState) => state.songs.outputSong);
   //
   // useEffect(() => {
   //   createKakaoButton();
@@ -151,7 +149,6 @@ const Result = () => {
             style={{ marginRight: 16 }}
           />
         </Link>
-
         <CircleContainer>
           <Circle
             icon={
@@ -168,7 +165,6 @@ const Result = () => {
               setIsExpanded((prevState) => !prevState);
             }}
           />
-
           {isExpanded && (
             <IconContainer>
               <CopyToClipboard
@@ -204,7 +200,6 @@ const Result = () => {
                 style={{ marginBottom: 24 }}
                 onClick={() => setIsExpanded(false)}
               />
-
               <Link
                 href={`http://twitter.com/share?url=${encodeURIComponent(
                   'www.naver.com'

@@ -8,7 +8,7 @@ import { getSongs } from '../../reducers/songReducer';
 import { PickSong } from './PickSong';
 import { SmallLogoIcon } from '../../public/svg';
 
-const Container = styled.div`
+const Container = styled.main`
   height: 100%;
   display: flex;
   flex-direction: column;

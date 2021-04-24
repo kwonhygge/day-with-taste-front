@@ -9,20 +9,6 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   onClick?: (event: any) => void;
 };
 
-const Button: React.FC<ButtonProps> = (props) => {
-  const { color, label, onClick, value, size } = props;
-  return (
-    <StyledButton
-      {...props}
-      onClick={(event) => onClick && onClick(event)}
-      value={value}
-      size={size}
-      color={color}>
-      {label}
-    </StyledButton>
-  );
-};
-
 const StyledButton = styled.button<{
   color?: 'lightBlue' | 'orange';
   size?: 'large';
@@ -41,23 +27,12 @@ const StyledButton = styled.button<{
   font-style: normal;
   line-height: 24px;
 
-  background-color: ${({ theme }) => theme.colors.lightBlue};
-  color: ${({ theme }) => theme.colors.primaryBlue};
+  background-color: ${({ color, theme }) =>
+    color !== undefined ? theme.colors[color] : theme.colors.lightBlue};
+  color: ${({ color, theme }) =>
+    color === 'orange' ? '#fff' : theme.colors.primaryBlue};
   cursor: pointer;
 
-  ${({ color }) => {
-    if (color === 'lightBlue')
-      return css`
-        background-color: ${({ theme }) => theme.colors.lightBlue};
-        color: ${({ theme }) => theme.colors.primaryBlue};
-      `;
-
-    if (color === 'orange')
-      return css`
-        background-color: ${({ theme }) => theme.colors.orange};
-        color: #fff;
-      `;
-  }}
   ${({ size }) => {
     if (size === 'large')
       return css`
@@ -65,11 +40,25 @@ const StyledButton = styled.button<{
         padding-left: 48px;
       `;
   }}
-  
-  &:disabled{
-    color: #ABCAD7;
-   background-color: ${({ theme }) => theme.colors.lightBlue};
+
+  &:disabled {
+    color: #abcad7;
+    background-color: ${({ theme }) => theme.colors.lightBlue};
   }
 `;
+
+const Button: React.FC<ButtonProps> = (props) => {
+  const { color, label, onClick, value, size } = props;
+  return (
+    <StyledButton
+      {...props}
+      onClick={(event) => onClick && onClick(event)}
+      value={value}
+      size={size}
+      color={color}>
+      {label}
+    </StyledButton>
+  );
+};
 
 export default Button;
