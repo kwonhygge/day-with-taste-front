@@ -71,7 +71,7 @@ const InputMusic = () => {
             뭐였더라?
           </TitleText>
           <Input
-            placeholder={'아티스트 이름이나 노래 제목'}
+            placeholder={'아티스트 이름과 노래 제목'}
             onChange={(e) => setKeyword(e.target.value)}
           />
         </ContentContainer>
