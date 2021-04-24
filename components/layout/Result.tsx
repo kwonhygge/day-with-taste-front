@@ -65,7 +65,7 @@ const Header = styled.div`
 const Result = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  const outputSong = useSelector((state: RootState) => state.songs.outputSong);
+  const result = useSelector((state: RootState) => state.songs.result);
   //
   // useEffect(() => {
   //   createKakaoButton();
@@ -89,12 +89,12 @@ const Result = () => {
   //       // 두번째 step 에서 가져온 javascript key 를 이용하여 initialize
   //       kakao.init(process.env.kakaoKey);
   //     }
-  //     kakao.Link.createDefaultButton({
+  //     kakao.L Fink.createDefaultButton({
   //       // Render 부분 id=kakao-link-btn 을 찾아 그부분에 렌더링을 합니다
   //       container: '#kakao-link-btn',
   //       objectType: 'feed',
   //       content: {
-  //         title: '타이틀',
+  //                title: '타이틀',
   //         description: '#리액트 #카카오 #공유버튼',
   //         imageUrl: 'IMAGE_URL', // i.e. process.env.FETCH_URL + '/logo.png'
   //         link: {
