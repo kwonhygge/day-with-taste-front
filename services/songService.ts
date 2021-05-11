@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {
   RandomMusicResponseType,
-  recommendationResponseType,
   Result,
   SongsResponseType,
 } from '../interfaces';
@@ -25,15 +24,6 @@ export default class SongService {
     const response = await axios.post<RandomMusicResponseType>(
       `${BACK_API_URL}/submit`,
       result
-    );
-    return response.data;
-  }
-
-  public static async getRecommendation(
-    randomMusic: string
-  ): Promise<recommendationResponseType> {
-    const response = await axios.get<recommendationResponseType>(
-      `${BACK_API_URL}/music?id=${randomMusic}`
     );
     return response.data;
   }
