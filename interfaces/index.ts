@@ -11,18 +11,15 @@ export type Question = {
 };
 
 export type Song = {
+  id: string;
   title: string;
   url: string;
-  artist: string;
   image: string;
 };
 
 export type Result = {
   result: string;
-  title: string;
-  url: string;
-  artist: string;
-  image: string;
+  music: string;
 };
 
 export type SongsResponseType = {
@@ -32,10 +29,5 @@ export type SongsResponseType = {
 
 export type RandomMusicResponseType = {
   data: { randomMusic: string };
-  success: boolean;
-};
-
-export type recommendationResponseType = {
-  data: Song;
   success: boolean;
 };

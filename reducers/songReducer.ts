@@ -1,9 +1,7 @@
 import {
   RandomMusicResponseType,
-  recommendationResponseType,
   Result,
   Song,
-  Songs,
   SongsResponseType,
 } from '../interfaces';
 import { AxiosError } from 'axios';
@@ -12,19 +10,19 @@ import SongService from '../services/songService';
 import { AnyAction } from 'redux';
 
 export interface SongsState {
-  songs: Songs | null;
-  result: Result | null;
+  songs: Song[] | null;
+  music: string | null;
+  result: string | null;
   randomMusic: string | null;
-  recommendation: Song | null;
   loading: boolean;
   error: Error | null;
 }
 
 const initialState: SongsState = {
   songs: null,
+  music: null,
   result: null,
   randomMusic: null,
-  recommendation: null,
   loading: false,
   error: null,
 };
@@ -38,9 +36,7 @@ const POST_RESULT_REQUEST = 'POST_RESULT_REQUEST' as const;
 const POST_RESULT_SUCCESS = 'POST_RESULT_SUCCESS' as const;
 const POST_RESULT_ERROR = 'POST_RESULT_ERROR' as const;
 const GET_RECOMMENDATION = 'GET_RECOMMENDATION' as const;
-const GET_RECOMMENDATION_REQUEST = 'GET_RECOMMENDATION_REQUEST' as const;
-const GET_RECOMMENDATION_SUCCESS = 'GET_RECOMMENDATION_SUCCESS' as const;
-const GET_RECOMMENDATION_ERROR = 'GET_RECOMMENDATION_ERROR' as const;
+const SET_MUSIC = 'SET_MUSIC' as const;
 const SET_RESULT = 'SET_RESULT' as const;
 
 export const getSongs = (keyword: string) => ({
@@ -48,7 +44,7 @@ export const getSongs = (keyword: string) => ({
   payload: { keyword },
 });
 export const getSongsRequest = () => ({ type: GET_SONGS_REQUEST });
-export const getSongsSuccess = (songs: Songs) => ({
+export const getSongsSuccess = (songs: Song[]) => ({
   type: GET_SONGS_SUCCESS,
   payload: songs,
 });
@@ -56,9 +52,9 @@ export const getSongsError = (e: AxiosError) => ({
   type: GET_SONGS_ERROR,
   payload: e,
 });
-export const postResult = (result: Result) => ({
+export const postResult = (music: string, result: string) => ({
   type: POST_RESULT,
-  payload: { result },
+  payload: { music, result },
 });
 export const postResultRequest = () => ({
   type: POST_RESULT_REQUEST,
@@ -75,18 +71,11 @@ export const getRecommendation = (randomMusic: string) => ({
   type: GET_RECOMMENDATION,
   payload: { randomMusic },
 });
-export const getRecommendationRequest = () => ({
-  type: GET_RECOMMENDATION_REQUEST,
+export const setMusic = (music: string) => ({
+  type: SET_MUSIC,
+  payload: music,
 });
-export const getRecommendationSuccess = (recommendation: Song) => ({
-  type: GET_RECOMMENDATION_SUCCESS,
-  payload: recommendation,
-});
-export const getRecommendationError = (e: AxiosError) => ({
-  type: GET_RECOMMENDATION_ERROR,
-  payload: e,
-});
-export const setResult = (result: Result) => ({
+export const setResult = (result: string) => ({
   type: SET_RESULT,
   payload: result,
 });
@@ -98,9 +87,7 @@ type SongsAction =
   | ReturnType<typeof postResultRequest>
   | ReturnType<typeof postResultSuccess>
   | ReturnType<typeof postResultError>
-  | ReturnType<typeof getRecommendationRequest>
-  | ReturnType<typeof getRecommendationSuccess>
-  | ReturnType<typeof getRecommendationError>
+  | ReturnType<typeof setMusic>
   | ReturnType<typeof setResult>;
 
 const songReducer = (
@@ -150,26 +137,10 @@ const songReducer = (
         randomMusic: null,
         error: action.payload,
       };
-    case GET_RECOMMENDATION_REQUEST:
+    case SET_MUSIC:
       return {
         ...state,
-        loading: true,
-        recommendation: state.recommendation,
-        error: null,
-      };
-    case GET_RECOMMENDATION_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        recommendation: action.payload,
-        error: null,
-      };
-    case GET_RECOMMENDATION_ERROR:
-      return {
-        ...state,
-        loading: false,
-        songs: null,
-        error: action.payload,
+        music: action.payload,
       };
     case SET_RESULT:
       return {
@@ -192,13 +163,13 @@ interface GetSongsSagaAction extends AnyAction {
 function* getSongsSaga(action: GetSongsSagaAction) {
   try {
     yield put({ type: GET_SONGS_REQUEST });
-    const songs: SongsResponseType = yield call(
+    const songsResponse: SongsResponseType = yield call(
       SongService.getSongs,
       action.payload.keyword
     );
     yield put({
       type: GET_SONGS_SUCCESS,
-      payload: songs.data,
+      payload: songsResponse.data,
     });
   } catch (e) {
     yield put({
@@ -210,20 +181,21 @@ function* getSongsSaga(action: GetSongsSagaAction) {
 
 interface PostResultSagaAction extends AnyAction {
   payload: {
-    result: Result;
+    music: string;
+    result: string;
   };
 }
 
 function* postResultSaga(action: PostResultSagaAction) {
   try {
     yield put({ type: POST_RESULT_REQUEST });
-    const randomMusic: RandomMusicResponseType = yield call(
+    const randomMusicResponse: RandomMusicResponseType = yield call(
       SongService.postResult,
-      action.payload.result
+      { music: action.payload.music, result: action.payload.result }
     );
     yield put({
       type: POST_RESULT_SUCCESS,
-      payload: randomMusic.data.randomMusic,
+      payload: randomMusicResponse.data.randomMusic,
     });
   } catch (e) {
     yield put({
@@ -233,34 +205,8 @@ function* postResultSaga(action: PostResultSagaAction) {
   }
 }
 
-interface GetRecommendationSagaAction extends AnyAction {
-  payload: {
-    randomMusic: string;
-  };
-}
-
-function* getRecommendationSaga(action: GetRecommendationSagaAction) {
-  try {
-    yield put({ type: GET_RECOMMENDATION_REQUEST });
-    const recommendation: recommendationResponseType = yield call(
-      SongService.getRecommendation,
-      action.payload.randomMusic
-    );
-    yield put({
-      type: GET_RECOMMENDATION_SUCCESS,
-      payload: recommendation.data,
-    });
-  } catch (e) {
-    yield put({
-      type: GET_RECOMMENDATION_ERROR,
-      payload: e,
-    });
-  }
-}
-
 // [project] saga 함수를 실행하는 액션과 액션 생성 함수를 작성했다.
 export function* sagas() {
   yield takeEvery(GET_SONGS, getSongsSaga);
   yield takeEvery(POST_RESULT, postResultSaga);
-  yield takeEvery(GET_RECOMMENDATION, getRecommendationSaga);
 }
