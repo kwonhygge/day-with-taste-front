@@ -7,3 +7,4 @@ export { default as FacebookIcon } from './Facebook';
 export { default as LeftArrowIcon } from './LeftArrow';
 export { default as LogoIcon } from './Logo';
 export { default as SmallLogoIcon } from './SmallLogo';
+export { default as PlayCircleIcon } from './PlayCircle';
