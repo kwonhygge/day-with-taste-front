@@ -81,7 +81,7 @@ const InputMusic = () => {
           onClick={() => handleClick()}
           label={'곰곰이 생각해보기'}
           color={'orange'}>
-          곰곰히 생각해보기
+          곰곰이 생각해보기
         </Button>
         <Modal
           isVisible={isVisible}
