@@ -12,8 +12,8 @@ import { AnyAction } from 'redux';
 export interface SongsState {
   songs: Song[] | null;
   music: string | null;
-  result: string | null;
-  randomMusic: string | null;
+  result: Result | null;
+  randomMusic: RandomMusicResponseType | null;
   loading: boolean;
   error: Error | null;
 }
@@ -35,8 +35,6 @@ const POST_RESULT = 'POST_RESULT' as const;
 const POST_RESULT_REQUEST = 'POST_RESULT_REQUEST' as const;
 const POST_RESULT_SUCCESS = 'POST_RESULT_SUCCESS' as const;
 const POST_RESULT_ERROR = 'POST_RESULT_ERROR' as const;
-const GET_RECOMMENDATION = 'GET_RECOMMENDATION' as const;
-const SET_MUSIC = 'SET_MUSIC' as const;
 const SET_RESULT = 'SET_RESULT' as const;
 
 export const getSongs = (keyword: string) => ({
@@ -52,14 +50,14 @@ export const getSongsError = (e: AxiosError) => ({
   type: GET_SONGS_ERROR,
   payload: e,
 });
-export const postResult = (music: string, result: string) => ({
+export const postResult = (result: Result) => ({
   type: POST_RESULT,
-  payload: { music, result },
+  payload: { result },
 });
 export const postResultRequest = () => ({
   type: POST_RESULT_REQUEST,
 });
-export const postResultSuccess = (randomMusic: string) => ({
+export const postResultSuccess = (randomMusic: RandomMusicResponseType) => ({
   type: POST_RESULT_SUCCESS,
   payload: randomMusic,
 });
@@ -67,15 +65,7 @@ export const postResultError = (e: AxiosError) => ({
   type: POST_RESULT_ERROR,
   payload: e,
 });
-export const getRecommendation = (randomMusic: string) => ({
-  type: GET_RECOMMENDATION,
-  payload: { randomMusic },
-});
-export const setMusic = (music: string) => ({
-  type: SET_MUSIC,
-  payload: music,
-});
-export const setResult = (result: string) => ({
+export const setResult = (result: Result) => ({
   type: SET_RESULT,
   payload: result,
 });
@@ -87,7 +77,6 @@ type SongsAction =
   | ReturnType<typeof postResultRequest>
   | ReturnType<typeof postResultSuccess>
   | ReturnType<typeof postResultError>
-  | ReturnType<typeof setMusic>
   | ReturnType<typeof setResult>;
 
 const songReducer = (
@@ -137,11 +126,6 @@ const songReducer = (
         randomMusic: null,
         error: action.payload,
       };
-    case SET_MUSIC:
-      return {
-        ...state,
-        music: action.payload,
-      };
     case SET_RESULT:
       return {
         ...state,
@@ -181,8 +165,7 @@ function* getSongsSaga(action: GetSongsSagaAction) {
 
 interface PostResultSagaAction extends AnyAction {
   payload: {
-    music: string;
-    result: string;
+    result: Result;
   };
 }
 
@@ -191,7 +174,7 @@ function* postResultSaga(action: PostResultSagaAction) {
     yield put({ type: POST_RESULT_REQUEST });
     const randomMusicResponse: RandomMusicResponseType = yield call(
       SongService.postResult,
-      { music: action.payload.music, result: action.payload.result }
+      action.payload.result
     );
     yield put({
       type: POST_RESULT_SUCCESS,
