@@ -11,7 +11,7 @@ export type Question = {
 };
 
 export type Song = {
-  id: string;
+  music: string;
   title: string;
   url: string;
   image: string;
@@ -19,6 +19,8 @@ export type Song = {
 
 export type Result = {
   result: string;
+  image: string;
+  title: string;
   music: string;
 };
 
@@ -28,6 +30,10 @@ export type SongsResponseType = {
 };
 
 export type RandomMusicResponseType = {
-  data: { randomMusic: string };
+  data: {
+    randomMusic: string;
+    image: string;
+    title: string;
+  };
   success: boolean;
 };
