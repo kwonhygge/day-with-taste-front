@@ -30,8 +30,11 @@ export type SongsResponseType = {
 };
 
 export type RandomMusicResponseType = {
+  data: { randomMusic: string; image: string; title: string };
+  success: boolean;
+};
+export type RecommendationResponseType = {
   data: {
-    randomMusic: string;
     image: string;
     title: string;
   };

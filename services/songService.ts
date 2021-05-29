@@ -22,8 +22,20 @@ export default class SongService {
     result: Result
   ): Promise<RandomMusicResponseType> {
     const response = await axios.post<RandomMusicResponseType>(
-      `${BACK_API_URL}/submit`,
+      `${BACK_API_URL}/result`,
       result
+    );
+    return response.data;
+  }
+
+  public static async getRecommendation(
+    keyword: string
+  ): Promise<SongsResponseType> {
+    const response = await axios.get<SongsResponseType>(
+      `${BACK_API_URL}/music`,
+      {
+        params: { music: keyword },
+      }
     );
     return response.data;
   }
