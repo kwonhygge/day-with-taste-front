@@ -3,24 +3,34 @@ import Quote from '../../components/layout/Quote';
 import Router from 'next/router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SongsState, postResult } from '../../reducers/songReducer';
+import { postResult } from '../../reducers/songReducer';
+import { Result } from '../../interfaces';
+import { RootState } from '../../reducers';
 
 const EndLoadingPage = () => {
-  const music = useSelector((state: SongsState) => state.songReducer.music);
-  const result = useSelector((state: SongsState) => state.songReducer.result);
+  const result = useSelector((state: RootState) => state.songs.result);
+  const randomMusic = useSelector(
+    (state: RootState) => state.songs.randomMusic
+  );
   const dispatch = useDispatch();
-  const moveToNextPage = () => {
-    Router.push('/result');
+  const moveToNextPage = (randomMusicId: string) => {
+    Router.push(`/result?result=${result?.result}&musicId=${randomMusicId}`);
   };
   useEffect(() => {
     try {
-      dispatch(postResult('vjaQAUrfoZ0', '00001000011'));
+      dispatch(postResult(result as Result));
     } catch (e) {
       console.log(e);
-    } finally {
-      window.setTimeout(moveToNextPage, 3000);
     }
-  }, []);
+  }, [result]);
+
+  useEffect(() => {
+    if (randomMusic)
+      window.setTimeout(
+        () => moveToNextPage(randomMusic?.data?.randomMusic),
+        3000
+      );
+  }, [randomMusic]);
 
   return (
     <Layout color={'blue'}>

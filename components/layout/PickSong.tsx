@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import PrimaryText from '../common/PrimaryText';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../reducers';
 import { Song } from '../../interfaces';
+import { setResultRequest } from '../../reducers/songReducer';
 import { PlayCircleIcon } from '../../public/svg';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-
 const Container = styled.main`
   width: 100%;
   height: 100%;
@@ -72,15 +72,16 @@ const FooterButton = styled.button`
   line-height: 24px;
   color: #fff;
   display: flex;
+  cursor: pointer;
   background: #ff844b;
   justify-content: center;
   align-items: center;
   &:disabled {
     color: #abcad7;
     background: #e4edf2;
+    cursor: initial;
   }
 `;
-
 export const PickSong = () => {
   const { songs } = useSelector((state: RootState) => state.songs);
   console.log(songs);
@@ -90,15 +91,13 @@ export const PickSong = () => {
     return currentKey === selectedKey;
   };
   const dispatch = useDispatch();
-
-  //TODO: 노래 리스트 받아온 뒤에 원하는 노래를 선택하면 컴포넌트가 리렌더링됩니다ㅠㅠ 선택 후 배경색도.. 왜 안바뀔까요리...
   const SongRow = useCallback(
     (el, index) => {
       return (
         <RowContainer
-          id={`${el.title}${index}`}
+          id={`${el.url}`}
           key={`${el.title}${index}`}
-          isSelected={isSelectedKey(`${el.title}${index}`)}
+          isSelected={isSelectedKey(`${el.url}`)}
           onClick={(e) => {
             setSelectedKey((e.currentTarget as Element).id);
           }}>
@@ -118,21 +117,39 @@ export const PickSong = () => {
     },
     [isSelectedKey, setSelectedKey]
   );
-
   const SongList = useCallback(() => {
     return (
       <SongContainer>
         {songs && songs.map((el: Song, index: number) => SongRow(el, index))}
       </SongContainer>
     );
-  }, [songs]);
+  }, [songs, SongRow]);
   return (
     <>
       <Container>
         <SongListContainer>
           <TitleText>내가 생각하는 음악은</TitleText>
-          <SongList />
-          <FooterButton disabled={isSelectedKey('')}>이 노래야!</FooterButton>
+          {SongList()}
+          <FooterButton
+            disabled={isSelectedKey('')}
+            onClick={() => {
+              if (songs) {
+                const currentMusic = songs.find(
+                  (song) => song.url === selectedKey
+                );
+                dispatch(
+                  setResultRequest({
+                    result: '',
+                    image: currentMusic?.image ?? '',
+                    title: currentMusic?.title ?? '',
+                    music: currentMusic?.music ?? '',
+                  })
+                );
+                router.push('/loading/start-question');
+              }
+            }}>
+            이 노래야!
+          </FooterButton>
         </SongListContainer>
       </Container>
     </>
