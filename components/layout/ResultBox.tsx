@@ -71,7 +71,6 @@ const ResultBox = () => {
   const recommendation = useSelector(
     (state: RootState) => state.songs.recommendation
   );
-  console.log(recommendation, 'recommendation');
 
   return (
     <Container>
