@@ -2,6 +2,7 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import rootReducer from '.';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './rootSaga';
+import { createWrapper } from 'next-redux-wrapper';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -25,4 +26,5 @@ const configureStore = () => {
   return store;
 };
 
-export default configureStore;
+const wrapper = createWrapper(configureStore);
+export default wrapper;
