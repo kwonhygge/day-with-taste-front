@@ -62,9 +62,6 @@ const Questionnaire = ({ item }: Props) => {
   ]);
   const dispatch = useDispatch();
   let resultArr = [];
-  useEffect(() => {
-    if (result) console.log('result', result);
-  }, [result]);
 
   const handleButtonClick = async (answer: string) => {
     resultArr = [
@@ -74,7 +71,6 @@ const Questionnaire = ({ item }: Props) => {
     ];
     setQuestionResult(resultArr);
     if (item.id === 11) {
-      console.log('result', result);
       try {
         await dispatch(
           setResultAction({
