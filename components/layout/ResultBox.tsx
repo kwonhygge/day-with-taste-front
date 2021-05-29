@@ -2,20 +2,36 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PrimaryText from '../common/PrimaryText';
 import Caret from '../../public/svg/Caret';
-
+import { PlayCircleIcon } from '../../public/svg';
+import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../reducers';
 const Container = styled.main``;
 const Header = styled.div`
   display: flex;
+  align-items: center;
   background-color: #fff;
   height: 140px;
 `;
 const ThumbnailContainer = styled.div`
-  width: 140px;
-  height: 140px;
-  background: #fbfbfb;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 24px;
+`;
+const PlayCircleContainer = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 `;
 const MusicInfoContainer = styled.div`
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 const MusicInfoHeaderText = styled(PrimaryText)`
   font-style: normal;
@@ -51,16 +67,32 @@ const FooterContentText = styled(PrimaryText)`
 
 const ResultBox = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
+
+  const recommendation = useSelector(
+    (state: RootState) => state.songs.recommendation
+  );
+  console.log(recommendation, 'recommendation');
+
   return (
     <Container>
       <Header>
-        <ThumbnailContainer></ThumbnailContainer>
+        <ThumbnailContainer>
+          <Link href={`http://www.youtube.com/watch?v=${''}`}>
+            <a target="_blank" rel="noreferrer">
+              <PlayCircleContainer>
+                <PlayCircleIcon />
+              </PlayCircleContainer>
+            </a>
+          </Link>
+
+          <img
+            src={recommendation?.data?.image ?? ''}
+            style={{ width: '100%', height: '100%' }}
+          />
+        </ThumbnailContainer>
         <MusicInfoContainer>
           <MusicInfoHeaderText style={{ fontWeight: 'bold', marginBottom: 4 }}>
-            최정윤
-          </MusicInfoHeaderText>
-          <MusicInfoHeaderText style={{ fontWeight: 'normal' }}>
-            Dance with me bady
+            {recommendation?.data?.title ?? ''}
           </MusicInfoHeaderText>
         </MusicInfoContainer>
       </Header>
