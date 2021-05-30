@@ -28,10 +28,8 @@ const PlayCircleContainer = styled.div`
   transform: translate(-50%, -50%);
 `;
 const MusicInfoContainer = styled.div`
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  margin: 16px;
+  width: 168px;
 `;
 const MusicInfoHeaderText = styled(PrimaryText)`
   font-style: normal;
@@ -76,7 +74,8 @@ const ResultBox = () => {
     <Container>
       <Header>
         <ThumbnailContainer>
-          <Link href={`http://www.youtube.com/watch?v=${''}`}>
+          <Link
+            href={`http://www.youtube.com/watch?v=${recommendation?.data?.music}`}>
             <a target="_blank" rel="noreferrer">
               <PlayCircleContainer>
                 <PlayCircleIcon />

@@ -37,6 +37,7 @@ export type RecommendationResponseType = {
   data: {
     image: string;
     title: string;
+    music: string;
   };
   success: boolean;
 };
