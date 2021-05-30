@@ -6,6 +6,7 @@ import SecondaryText from '../common/SecondaryText';
 
 type QuoteProps = {
   themeColor: 'light' | 'dark';
+  contents: string;
 };
 
 const Container = styled.div`
@@ -41,18 +42,12 @@ const SmallSecondaryText = styled(SecondaryText)<{
 `;
 
 const Quote = (props: QuoteProps) => {
-  const { themeColor = 'light' } = props;
+  const { themeColor = 'light', contents } = props;
   return (
     <Container>
       <ContentContainer>
         <Circle size={'large'} />
-        <TitlePrimaryText themeColor={themeColor}>
-          다른 사람들이 기대하는 것보다 더 많이,{'\n'}
-          그리고 진심으로 기뻐하며 주라
-        </TitlePrimaryText>
-        <SmallSecondaryText themeColor={themeColor}>
-          {'<'}삶을 위한 지침{'>'} 중에서
-        </SmallSecondaryText>
+        <TitlePrimaryText themeColor={themeColor}>{contents}</TitlePrimaryText>
       </ContentContainer>
     </Container>
   );

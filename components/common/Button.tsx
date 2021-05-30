@@ -6,12 +6,14 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: 'large';
   label?: string;
   value?: string;
+  hoverColorDisabled?: boolean;
   onClick?: (event: any) => void;
 };
 
 const StyledButton = styled.button<{
   color?: 'lightBlue' | 'orange';
   size?: 'large';
+  hoverColorDisabled: boolean;
 }>`
   width: 264px;
   height: 72px;
@@ -40,6 +42,15 @@ const StyledButton = styled.button<{
         padding-left: 48px;
       `;
   }}
+  ${({ hoverColorDisabled }) =>
+    !hoverColorDisabled &&
+    css`
+      &:hover {
+        color: #fff;
+        background-color: ${({ theme }) => theme.colors.orange};
+      }
+    `}
+
 
   &:disabled {
     color: #abcad7;
@@ -48,14 +59,22 @@ const StyledButton = styled.button<{
 `;
 
 const Button: React.FC<ButtonProps> = (props) => {
-  const { color, label, onClick, value, size } = props;
+  const {
+    color,
+    label,
+    onClick,
+    value,
+    size,
+    hoverColorDisabled = false,
+  } = props;
   return (
     <StyledButton
       {...props}
       onClick={(event) => onClick && onClick(event)}
       value={value}
       size={size}
-      color={color}>
+      color={color}
+      hoverColorDisabled={hoverColorDisabled}>
       {label}
     </StyledButton>
   );

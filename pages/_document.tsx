@@ -55,7 +55,6 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <script src="/developers.kakao.com/sdk/js/kakao.min.js"></script>
         </body>
       </Html>
     );

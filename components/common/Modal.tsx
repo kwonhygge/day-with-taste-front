@@ -29,7 +29,10 @@ const ModalContainer = styled.div<{ width: number }>`
   z-index: 150;
   border-radius: 30px;
 `;
-const ContentContainer = styled.div``;
+const ContentContainer = styled.div`
+  position: relative;
+  z-index: 5000;
+`;
 
 const Modal: React.FC<ModalProps> = ({
   isVisible,
