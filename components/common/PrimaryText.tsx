@@ -6,7 +6,7 @@ export type PrimaryTextProps = React.HTMLAttributes<HTMLElement> & {
   children: string | string[];
 };
 
-const Container = styled.div<{ color: 'primary' | 'white' }>`
+const Container = styled.p<{ color: 'primary' | 'white' }>`
   font-family: 'Noto Sans CJK KR';
   font-style: normal;
   font-weight: normal;

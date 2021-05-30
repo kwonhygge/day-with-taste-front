@@ -3,20 +3,15 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from '../styles/theme';
 import './index.scss';
 import { GlobalStyle } from '../styles/global-style';
-import configureStore from '../reducers/configureStore';
-import { Provider } from 'react-redux';
-
-const store = configureStore();
+import wrapper from '../reducers/configureStore';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Component {...pageProps} />
+    </ThemeProvider>
   );
 };
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

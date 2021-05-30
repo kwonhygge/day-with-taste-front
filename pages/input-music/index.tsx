@@ -2,7 +2,7 @@ import Layout from '../../components/Layout';
 import InputMusic from '../../components/layout/InputMusic';
 
 const InputPage = () => (
-  <Layout color={'white'}>
+  <Layout >
     <InputMusic />
   </Layout>
 );

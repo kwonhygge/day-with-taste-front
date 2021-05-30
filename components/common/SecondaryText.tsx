@@ -5,7 +5,7 @@ export type SecondaryTextProps = React.HTMLAttributes<HTMLElement> & {
   children: string | string[];
 };
 
-const Container = styled.div`
+const Container = styled.p`
   font-family: 'Roboto';
   font-style: normal;
   font-weight: bold;

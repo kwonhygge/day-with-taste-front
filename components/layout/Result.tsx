@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Circle from '../common/Circle';
 import Link from 'next/link';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import TitleText from '../common/TitleText';
-import { ShareIcon, TeamIcon } from '../../public/svg';
+import {
+  FacebookIcon,
+  KakaoIcon,
+  LinkIcon,
+  ShareIcon,
+  SmallLogoIcon,
+  TeamIcon,
+  TwitterIcon,
+} from '../../public/svg';
 import ResultBox from './ResultBox';
+import PrimaryText from '../common/PrimaryText';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { getRecommendation } from '../../reducers/songReducer';
 
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,6 +36,24 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
   padding-right: 24px;
 `;
+const CircleContainer = styled.div`
+  position: relative;
+`;
+const IconContainer = styled.div`
+  position: absolute;
+  top: -384px;
+`;
+const CopiedText = styled(PrimaryText)`
+  position: absolute;
+  background: #fff;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 13px;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+`;
 const Header = styled.div`
   width: 100%;
   height: 56px;
@@ -33,11 +64,87 @@ const Header = styled.div`
 `;
 
 const Result = () => {
+  const router = useRouter();
+  const { result, musicId } = router.query;
+  const dispatch = useDispatch();
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
+
+  useEffect(() => {
+    if (musicId) {
+      try {
+        dispatch(getRecommendation(musicId as string));
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, [musicId]);
+
+  useEffect(() => {
+    if (isCopied) {
+      window.setTimeout(() => {
+        setIsCopied(false);
+      }, 1000);
+    }
+  }, [isCopied]);
+
+  useEffect(() => {
+    // createKakaoButton();
+  }, []);
+
+  // const createKakaoButton = () => {
+  //   // kakao sdk script이 정상적으로 불러와졌으면 window.Kakao로 접근이 가능합니다
+  //   if (window.Kakao) {
+  //     const kakao = window.Kakao;
+  //     // 중복 initialization 방지
+  //     if (!kakao.isInitialized()) {
+  //       // 두번째 step 에서 가져온 javascript key 를 이용하여 initialize
+  //       kakao.init(process.env.kakaoKey);
+  //     }
+  //     kakao.Link.createDefaultButton({
+  //       // Render 부분 id=kakao-link-btn 을 찾아 그부분에 렌더링을 합니다
+  //       container: '#kakao-link-btn',
+  //       objectType: 'feed',
+  //       content: {
+  //         title: '타이틀',
+  //         description: '#리액트 #카카오 #공유버튼',
+  //         imageUrl: 'IMAGE_URL', // i.e. process.env.FETCH_URL + '/logo.png'
+  //         link: {
+  //           mobileWebUrl: window.location.href,
+  //           webUrl: window.location.href,
+  //         },
+  //       },
+  //       social: {
+  //         likeCount: 77,
+  //         commentCount: 55,
+  //         sharedCount: 333,
+  //       },
+  //       buttons: [
+  //         {
+  //           title: '웹으로 보기',
+  //           link: {
+  //             mobileWebUrl: window.location.href,
+  //             webUrl: window.location.href,
+  //           },
+  //         },
+  //         {
+  //           title: '앱으로 보기',
+  //           link: {
+  //             mobileWebUrl: window.location.href,
+  //             webUrl: window.location.href,
+  //           },
+  //         },
+  //       ],
+  //     });
+  //   }
+  // };
+
   return (
     <Container>
+      {isCopied && <CopiedText>클립보드에 복사되었습니다!</CopiedText>}
       <UpperContainer>
         <Header>
-          <Circle size={'small'} backgroundColor={'orange'} />
+          <SmallLogoIcon color={'lightBlue'} />
         </Header>
         <ContentContainer>
           <TitleText color={'white'} style={{ marginBottom: 32 }}>
@@ -55,13 +162,73 @@ const Result = () => {
             style={{ marginRight: 16 }}
           />
         </Link>
-        <Link href={'/'}>
+        <CircleContainer>
           <Circle
-            icon={<ShareIcon />}
+            icon={
+              <span
+                onClick={() => {
+                  setIsExpanded((prevState) => !prevState);
+                }}>
+                <ShareIcon />
+              </span>
+            }
             clickable={true}
             backgroundColor={'orange'}
+            onClick={() => {
+              setIsExpanded((prevState) => !prevState);
+            }}
           />
-        </Link>
+          {isExpanded && (
+            <IconContainer>
+              <CopyToClipboard
+                text={`https://day-with-taste.netlify.app?/result?result=${result}&musicId=${musicId}`}
+                onCopy={() => setIsCopied(true)}>
+                <Circle
+                  icon={<LinkIcon />}
+                  clickable={true}
+                  backgroundColor={'lightBlue'}
+                  style={{ marginBottom: 24 }}
+                  onClick={() => setIsExpanded(false)}
+                />
+              </CopyToClipboard>
+              <Link
+                href={`http://www.facebook.com/sharer.php?u=${encodeURIComponent(
+                  `https://day-with-taste.netlify.app/result?result=${result}&musicId=${musicId}`
+                )}`}>
+                <a target="_blank" rel="noreferrer">
+                  <Circle
+                    icon={<FacebookIcon />}
+                    clickable={true}
+                    backgroundColor={'blue'}
+                    style={{ marginBottom: 24 }}
+                    onClick={() => setIsExpanded(false)}
+                  />
+                </a>
+              </Link>
+              <Circle
+                id={'kakao-link-btn'}
+                icon={<KakaoIcon />}
+                clickable={true}
+                backgroundColor={'yellow'}
+                style={{ marginBottom: 24 }}
+                onClick={() => setIsExpanded(false)}
+              />
+              <Link
+                href={`http://twitter.com/share?url=${encodeURIComponent(
+                  `https://day-with-taste.netlify.app/result?result=${result}&musicId=${musicId}`
+                )}&text=나와 똑같은 하루를 보낸 단짝으로부터 온 음악은 이거야`}>
+                <a target="_blank" rel="noreferrer">
+                  <Circle
+                    icon={<TwitterIcon />}
+                    clickable={true}
+                    backgroundColor={'skyBlue'}
+                    onClick={() => setIsExpanded(false)}
+                  />
+                </a>
+              </Link>
+            </IconContainer>
+          )}
+        </CircleContainer>
       </ButtonContainer>
     </Container>
   );

@@ -6,7 +6,7 @@ export type TitleTextProps = React.HTMLAttributes<HTMLElement> & {
   children: string | string[];
 };
 
-const Container = styled.div<{ color?: 'primary' | 'white' }>`
+const Container = styled.h1<{ color?: 'primary' | 'white' }>`
   font-family: 'Noto Sans CJK KR';
   font-style: normal;
   font-weight: normal;

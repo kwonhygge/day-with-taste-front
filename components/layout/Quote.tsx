@@ -1,11 +1,11 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Circle from '../common/Circle';
 import PrimaryText from '../common/PrimaryText';
 import SecondaryText from '../common/SecondaryText';
 
 type QuoteProps = {
-  themeColor?: 'light' | 'dark';
+  themeColor: 'light' | 'dark';
 };
 
 const Container = styled.div`
@@ -20,23 +20,14 @@ const ContentContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
 const TitlePrimaryText = styled(PrimaryText)<{ themeColor?: 'light' | 'dark' }>`
   margin: 40px 0px 16px 0px;
   text-align: center;
   font-weight: normal;
   font-size: 16px;
   line-height: 24px;
-  ${({ themeColor }) => {
-    if (themeColor === 'light')
-      return css`
-        color: #fff;
-      `;
-    if (themeColor === 'dark')
-      return css`
-        color: ${({ theme }) => theme.colors.primaryBlue};
-      `;
-  }}
+  color: ${({ theme, themeColor }) =>
+    themeColor === 'light' ? '#fff' : theme.colors.primaryBlue};
 `;
 const SmallSecondaryText = styled(SecondaryText)<{
   themeColor?: 'light' | 'dark';
@@ -45,16 +36,8 @@ const SmallSecondaryText = styled(SecondaryText)<{
   font-weight: normal;
   font-size: 14px;
   line-height: 13px;
-  ${({ themeColor }) => {
-    if (themeColor === 'light')
-      return css`
-        color: #fff;
-      `;
-    if (themeColor === 'dark')
-      return css`
-        color: ${({ theme }) => theme.colors.primaryBlue};
-      `;
-  }}
+  color: ${({ theme, themeColor }) =>
+    themeColor === 'light' ? '#fff' : theme.colors.primaryBlue};
 `;
 
 const Quote = (props: QuoteProps) => {

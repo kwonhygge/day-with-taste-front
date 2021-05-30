@@ -1,6 +1,8 @@
 import React, { HTMLAttributes, ReactNode } from 'react';
 import Head from 'next/head';
 import styled, { css } from 'styled-components';
+import { useSelector } from 'react-redux';
+import { RootState } from '../reducers';
 
 type Props = {
   color?: 'white' | 'blue';
@@ -36,6 +38,8 @@ const LayoutInnerContainer = styled.div<{ backgroundColor?: string }>`
 
 const Layout = (props: LayoutProps) => {
   const { children, color } = props;
+  const { loading } = useSelector((state: RootState) => state.songs);
+
   return (
     <LayoutContainer>
       <LayoutInnerContainer backgroundColor={color} {...props}>
@@ -47,6 +51,11 @@ const Layout = (props: LayoutProps) => {
             content="initial-scale=1.0, width=device-width"
           />
         </Head>
+        {loading && (
+          <div style={{ position: 'fixed', zIndex: 5000, left: '50%' }}>
+            Loading
+          </div>
+        )}
         {children}
       </LayoutInnerContainer>
     </LayoutContainer>
