@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Circle from '../common/Circle';
 import PrimaryText from '../common/PrimaryText';
 import SecondaryText from '../common/SecondaryText';
