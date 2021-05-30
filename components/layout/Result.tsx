@@ -15,8 +15,9 @@ import {
 } from '../../public/svg';
 import ResultBox from './ResultBox';
 import PrimaryText from '../common/PrimaryText';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../reducers';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { getRecommendation } from '../../reducers/songReducer';
 
 const Container = styled.main`
   display: flex;
@@ -63,13 +64,22 @@ const Header = styled.div`
 `;
 
 const Result = () => {
+  const router = useRouter();
+  const { result, musicId } = router.query;
+  const dispatch = useDispatch();
   const [isExpanded, setIsExpanded] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  const result = useSelector((state: RootState) => state.songs.result);
-  //
-  // useEffect(() => {
-  //   createKakaoButton();
-  // }, []);
+
+  useEffect(() => {
+    if (musicId) {
+      try {
+        dispatch(getRecommendation(musicId as string));
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, [musicId]);
+
   useEffect(() => {
     if (isCopied) {
       window.setTimeout(() => {
@@ -78,54 +88,57 @@ const Result = () => {
     }
   }, [isCopied]);
 
-  // const createKakaoButton = () => {
-  //   console.log(process.env.kakaoKey);
-  //   // kakao sdk script이 정상적으로 불러와졌으면 window.Kakao로 접근이 가능합니다
-  //   if (window.Kakao) {
-  //     console.log('here');
-  //     const kakao = window.Kakao;
-  //     // 중복 initialization 방지
-  //     if (!kakao.isInitialized()) {
-  //       // 두번째 step 에서 가져온 javascript key 를 이용하여 initialize
-  //       kakao.init(process.env.kakaoKey);
-  //     }
-  //     kakao.L Fink.createDefaultButton({
-  //       // Render 부분 id=kakao-link-btn 을 찾아 그부분에 렌더링을 합니다
-  //       container: '#kakao-link-btn',
-  //       objectType: 'feed',
-  //       content: {
-  //                title: '타이틀',
-  //         description: '#리액트 #카카오 #공유버튼',
-  //         imageUrl: 'IMAGE_URL', // i.e. process.env.FETCH_URL + '/logo.png'
-  //         link: {
-  //           mobileWebUrl: window.location.href,
-  //           webUrl: window.location.href,
-  //         },
-  //       },
-  //       social: {
-  //         likeCount: 77,
-  //         commentCount: 55,
-  //         sharedCount: 333,
-  //       },
-  //       buttons: [
-  //         {
-  //           title: '웹으로 보기',
-  //           link: {
-  //             mobileWebUrl: window.location.href,
-  //             webUrl: window.location.href,
-  //           },
-  //         },
-  //         {
-  //           title: '앱으로 보기',
-  //           link: {
-  //             mobileWebUrl: window.location.href,
-  //             webUrl: window.location.href,
-  //           },
-  //         },
-  //       ],
-  //     });
-  //   }
-  // };
+  useEffect(() => {
+    createKakaoButton();
+  }, []);
+
+  const createKakaoButton = () => {
+    // kakao sdk script이 정상적으로 불러와졌으면 window.Kakao로 접근이 가능합니다
+    if (window.Kakao) {
+      const kakao = window.Kakao;
+      // 중복 initialization 방지
+      if (!kakao.isInitialized()) {
+        // 두번째 step 에서 가져온 javascript key 를 이용하여 initialize
+        kakao.init(process.env.kakaoKey);
+      }
+      kakao.Link.createDefaultButton({
+        // Render 부분 id=kakao-link-btn 을 찾아 그부분에 렌더링을 합니다
+        container: '#kakao-link-btn',
+        objectType: 'feed',
+        content: {
+          title: '타이틀',
+          description: '#리액트 #카카오 #공유버튼',
+          imageUrl: 'IMAGE_URL', // i.e. process.env.FETCH_URL + '/logo.png'
+          link: {
+            mobileWebUrl: window.location.href,
+            webUrl: window.location.href,
+          },
+        },
+        social: {
+          likeCount: 77,
+          commentCount: 55,
+          sharedCount: 333,
+        },
+        buttons: [
+          {
+            title: '웹으로 보기',
+            link: {
+              mobileWebUrl: window.location.href,
+              webUrl: window.location.href,
+            },
+          },
+          {
+            title: '앱으로 보기',
+            link: {
+              mobileWebUrl: window.location.href,
+              webUrl: window.location.href,
+            },
+          },
+        ],
+      });
+    }
+  };
+
   return (
     <Container>
       {isCopied && <CopiedText>클립보드에 복사되었습니다!</CopiedText>}
@@ -168,7 +181,7 @@ const Result = () => {
           {isExpanded && (
             <IconContainer>
               <CopyToClipboard
-                text={'https://day-with-taste.netlify.app/'}
+                text={`https://day-with-taste.netlify.app?/result?result=${result}&musicId=${musicId}`}
                 onCopy={() => setIsCopied(true)}>
                 <Circle
                   icon={<LinkIcon />}
@@ -180,7 +193,7 @@ const Result = () => {
               </CopyToClipboard>
               <Link
                 href={`http://www.facebook.com/sharer.php?u=${encodeURIComponent(
-                  'www.naver.com'
+                  `https://day-with-taste.netlify.app/result?result=${result}&musicId=${musicId}`
                 )}`}>
                 <a target="_blank" rel="noreferrer">
                   <Circle
@@ -202,7 +215,7 @@ const Result = () => {
               />
               <Link
                 href={`http://twitter.com/share?url=${encodeURIComponent(
-                  'www.naver.com'
+                  `https://day-with-taste.netlify.app/result?result=${result}&musicId=${musicId}`
                 )}&text=나와 똑같은 하루를 보낸 단짝으로부터 온 음악은 이거야`}>
                 <a target="_blank" rel="noreferrer">
                   <Circle

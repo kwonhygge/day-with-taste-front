@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactNode, useEffect } from 'react';
+import React, { HTMLAttributes, ReactNode } from 'react';
 import Head from 'next/head';
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -38,18 +38,7 @@ const LayoutInnerContainer = styled.div<{ backgroundColor?: string }>`
 
 const Layout = (props: LayoutProps) => {
   const { children, color } = props;
-  //TODO: Loading을 페이지마다 전역적으로 적용할 수 있는 방법이 있을까요? 어렵습니다..
   const { loading } = useSelector((state: RootState) => state.songs);
-
-  // useEffect(() => {
-  //   const script = document.createElement('script');
-  //   script.src = 'https://developers.kakao.com/sdk/js/kakao.js';
-  //   script.async = true;
-  //   document.body.appendChild(script);
-  //   return () => {
-  //     document.body.removeChild(script);
-  //   };
-  // }, []);
 
   return (
     <LayoutContainer>
