@@ -6,8 +6,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import TitleText from '../common/TitleText';
 import {
   FacebookIcon,
-  KakaoIcon,
   LinkIcon,
+  RotateIcon,
   ShareIcon,
   SmallLogoIcon,
   TeamIcon,
@@ -41,7 +41,7 @@ const CircleContainer = styled.div`
 `;
 const IconContainer = styled.div`
   position: absolute;
-  top: -384px;
+  top: -288px;
 `;
 const CopiedText = styled(PrimaryText)`
   position: absolute;
@@ -88,57 +88,6 @@ const Result = () => {
     }
   }, [isCopied]);
 
-  useEffect(() => {
-    // createKakaoButton();
-  }, []);
-
-  // const createKakaoButton = () => {
-  //   // kakao sdk script이 정상적으로 불러와졌으면 window.Kakao로 접근이 가능합니다
-  //   if (window.Kakao) {
-  //     const kakao = window.Kakao;
-  //     // 중복 initialization 방지
-  //     if (!kakao.isInitialized()) {
-  //       // 두번째 step 에서 가져온 javascript key 를 이용하여 initialize
-  //       kakao.init(process.env.kakaoKey);
-  //     }
-  //     kakao.Link.createDefaultButton({
-  //       // Render 부분 id=kakao-link-btn 을 찾아 그부분에 렌더링을 합니다
-  //       container: '#kakao-link-btn',
-  //       objectType: 'feed',
-  //       content: {
-  //         title: '타이틀',
-  //         description: '#리액트 #카카오 #공유버튼',
-  //         imageUrl: 'IMAGE_URL', // i.e. process.env.FETCH_URL + '/logo.png'
-  //         link: {
-  //           mobileWebUrl: window.location.href,
-  //           webUrl: window.location.href,
-  //         },
-  //       },
-  //       social: {
-  //         likeCount: 77,
-  //         commentCount: 55,
-  //         sharedCount: 333,
-  //       },
-  //       buttons: [
-  //         {
-  //           title: '웹으로 보기',
-  //           link: {
-  //             mobileWebUrl: window.location.href,
-  //             webUrl: window.location.href,
-  //           },
-  //         },
-  //         {
-  //           title: '앱으로 보기',
-  //           link: {
-  //             mobileWebUrl: window.location.href,
-  //             webUrl: window.location.href,
-  //           },
-  //         },
-  //       ],
-  //     });
-  //   }
-  // };
-
   return (
     <Container>
       {isCopied && <CopiedText>클립보드에 복사되었습니다!</CopiedText>}
@@ -154,14 +103,21 @@ const Result = () => {
         </ContentContainer>
       </UpperContainer>
       <ButtonContainer>
-        <Link href={'/team'}>
+        <Link href={'/'}>
           <Circle
-            icon={<TeamIcon />}
+            icon={<RotateIcon />}
             clickable={true}
             backgroundColor={'lightBlue'}
             style={{ marginRight: 16 }}
           />
         </Link>
+        <Circle
+          icon={<TeamIcon />}
+          clickable={true}
+          backgroundColor={'lightBlue'}
+          style={{ marginRight: 16 }}
+          onClick={() => router.push('/team')}
+        />
         <CircleContainer>
           <Circle
             icon={
@@ -181,7 +137,7 @@ const Result = () => {
           {isExpanded && (
             <IconContainer>
               <CopyToClipboard
-                text={`https://day-with-taste.netlify.app?/result?result=${result}&musicId=${musicId}`}
+                text={`https://day-with-taste.netlify.app/result?result=${result}&musicId=${musicId}`}
                 onCopy={() => setIsCopied(true)}>
                 <Circle
                   icon={<LinkIcon />}
@@ -205,14 +161,6 @@ const Result = () => {
                   />
                 </a>
               </Link>
-              <Circle
-                id={'kakao-link-btn'}
-                icon={<KakaoIcon />}
-                clickable={true}
-                backgroundColor={'yellow'}
-                style={{ marginBottom: 24 }}
-                onClick={() => setIsExpanded(false)}
-              />
               <Link
                 href={`http://twitter.com/share?url=${encodeURIComponent(
                   `https://day-with-taste.netlify.app/result?result=${result}&musicId=${musicId}`

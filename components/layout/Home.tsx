@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import Button from '../common/Button';
@@ -6,6 +6,7 @@ import TitleText from '../common/TitleText';
 import PrimaryText from '../common/PrimaryText';
 import { LogoIcon } from '../../public/svg';
 import CountService from '../../services/countService';
+import ShareModal from './ShareModal';
 
 const Container = styled.main`
   height: 100%;
@@ -35,6 +36,7 @@ const HomeContentText = styled(PrimaryText)`
 `;
 
 const Home = () => {
+  const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
     try {
       CountService.getCounts();
@@ -59,11 +61,17 @@ const Home = () => {
           label={'친구의 하루 물어보기'}
           style={{ marginBottom: 16 }}
           size={'large'}
+          onClick={() => setIsVisible(true)}
+          hoverColorDisabled
         />
         <Link href={'/loading/start-day'}>
           <Button label={'시작하기'} color={'orange'} size={'large'} />
         </Link>
       </ButtonContainer>
+      <ShareModal
+        handleModalClosed={() => setIsVisible(false)}
+        isVisible={isVisible}
+      />
     </Container>
   );
 };

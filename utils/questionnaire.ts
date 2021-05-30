@@ -18,15 +18,15 @@ export const questionnaire = [
   {
     id: 3,
     question: `맞다, 요즘 유명한 작품이라
-    늦게까지 찾아본거였지?`,
+    늦게까지 찾아본 거였지?`,
     answerA: '스포일러까지 보느라!',
-    answerB: '스포일러 당할까봐!',
+    answerB: '스포일러 당할까 봐!',
   },
   {
     id: 4,
     question: `요즘 할 일도 많은데
     어젠 너무 무리했나봐.`,
-    answerA: '그래도 역시 덕질이 최고',
+    answerA: '그래도 역시 덕질이 최고!',
     answerB: '역시 덕질은 인생의 낭비야!',
   },
   {

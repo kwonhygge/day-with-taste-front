@@ -4,7 +4,7 @@ import Circle from '../common/Circle';
 import TitleText from '../common/TitleText';
 import PrimaryText from '../common/PrimaryText';
 import { LeftArrowIcon, SmallLogoIcon } from '../../public/svg';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Container = styled.main`
   height: 100%;
@@ -49,50 +49,53 @@ const ItemContentText = styled(PrimaryText)`
   color: #fff;
 `;
 
-const Team = () => (
-  <Container>
-    <UpperContainer>
-      <Header>
-        <SmallLogoIcon color={'lightBlue'} />
-      </Header>
-      <TitleContainer>
-        <TitleText color={'white'}>울프 디벨로퍼스의</TitleText>
-        <TitleText style={{ color: '#FF844B' }}>
-          프로젝트 팀 음취음취취
-        </TitleText>
-      </TitleContainer>
-    </UpperContainer>
-    <BottomContainer>
-      <ListContainer>
-        <ItemContainer>
-          <ItemTitleText>Team leader</ItemTitleText>
-          <ItemContentText>Soyoung Cha</ItemContentText>
-        </ItemContainer>
-        <ItemContainer>
-          <ItemTitleText>Designr</ItemTitleText>
-          <ItemContentText>Soyoung Gwak</ItemContentText>
-        </ItemContainer>
-        <ItemContainer>
-          <ItemTitleText>Front-End</ItemTitleText>
-          <ItemContentText>Nam Hyunmyung</ItemContentText>
-          <ItemContentText>Hyeongyeong Kwon</ItemContentText>
-        </ItemContainer>
-        <ItemContainer>
-          <ItemTitleText>Back-End</ItemTitleText>
-          <ItemContentText>Najeong Park</ItemContentText>
-          <ItemContentText>Soyoung Cha</ItemContentText>
-        </ItemContainer>
-      </ListContainer>
-      <Link href={'/result'}>
+const Team = () => {
+  const router = useRouter();
+  return (
+    <Container>
+      <UpperContainer>
+        <Header>
+          <SmallLogoIcon color={'lightBlue'} />
+        </Header>
+        <TitleContainer>
+          <TitleText color={'white'}>울프 디벨로퍼스의</TitleText>
+          <TitleText style={{ color: '#FF844B' }}>
+            프로젝트 팀 음취음취취
+          </TitleText>
+        </TitleContainer>
+      </UpperContainer>
+      <BottomContainer>
+        <ListContainer>
+          <ItemContainer>
+            <ItemTitleText>Team leader</ItemTitleText>
+            <ItemContentText>Cha Soyoung</ItemContentText>
+          </ItemContainer>
+          <ItemContainer>
+            <ItemTitleText>Designr</ItemTitleText>
+            <ItemContentText>Gwak Soyoung</ItemContentText>
+          </ItemContainer>
+          <ItemContainer>
+            <ItemTitleText>Front-End</ItemTitleText>
+            <ItemContentText>Hyunmyung Nam</ItemContentText>
+            <ItemContentText>Kwon HyungKung</ItemContentText>
+          </ItemContainer>
+          <ItemContainer>
+            <ItemTitleText>Back-End</ItemTitleText>
+            <ItemContentText>Park Najeong</ItemContentText>
+            <ItemContentText>Cha Soyoung</ItemContentText>
+          </ItemContainer>
+        </ListContainer>
+
         <Circle
           backgroundColor={'orange'}
           icon={<LeftArrowIcon />}
           clickable={true}
           style={{ marginBottom: 10 }}
+          onClick={() => router.back()}
         />
-      </Link>
-    </BottomContainer>
-  </Container>
-);
+      </BottomContainer>
+    </Container>
+  );
+};
 
 export default Team;

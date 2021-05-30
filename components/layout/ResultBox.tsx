@@ -6,12 +6,22 @@ import { PlayCircleIcon } from '../../public/svg';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../reducers';
+import LoadingSpinner from '../common/LoadingSpinner';
+import { useRouter } from 'next/router';
+import { answers } from '../../utils/answer';
 const Container = styled.main``;
-const Header = styled.div`
-  display: flex;
-  align-items: center;
+const LoadingContainer = styled.div`
   background-color: #fff;
   height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const MusicContainer = styled.div`
+  background-color: #fff;
+  min-height: 140px;
+  display: flex;
+  align-items: center;
 `;
 const ThumbnailContainer = styled.div`
   position: relative;
@@ -60,40 +70,50 @@ const FooterContentText = styled(PrimaryText)`
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
-  line-height: 21px;
+  line-height: 12px;
 `;
 
 const ResultBox = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
-
+  const { loading } = useSelector((state: RootState) => state.songs);
   const recommendation = useSelector(
     (state: RootState) => state.songs.recommendation
   );
+  const router = useRouter();
+  const { result } = router.query;
 
   return (
     <Container>
-      <Header>
-        <ThumbnailContainer>
-          <Link
-            href={`http://www.youtube.com/watch?v=${recommendation?.data?.music}`}>
-            <a target="_blank" rel="noreferrer">
-              <PlayCircleContainer>
-                <PlayCircleIcon />
-              </PlayCircleContainer>
-            </a>
-          </Link>
+      {loading ? (
+        <LoadingContainer>
+          <LoadingSpinner />
+        </LoadingContainer>
+      ) : (
+        <MusicContainer>
+          <ThumbnailContainer>
+            <Link
+              href={`http://www.youtube.com/watch?v=${recommendation?.data?.music}`}>
+              <a target="_blank" rel="noreferrer">
+                <PlayCircleContainer>
+                  <PlayCircleIcon />
+                </PlayCircleContainer>
+              </a>
+            </Link>
 
-          <img
-            src={recommendation?.data?.image ?? ''}
-            style={{ width: '100%', height: '100%' }}
-          />
-        </ThumbnailContainer>
-        <MusicInfoContainer>
-          <MusicInfoHeaderText style={{ fontWeight: 'bold', marginBottom: 4 }}>
-            {recommendation?.data?.title ?? ''}
-          </MusicInfoHeaderText>
-        </MusicInfoContainer>
-      </Header>
+            <img
+              src={recommendation?.data?.image ?? ''}
+              style={{ width: '100%', height: '100%' }}
+            />
+          </ThumbnailContainer>
+          <MusicInfoContainer>
+            <MusicInfoHeaderText
+              style={{ fontWeight: 'bold', marginBottom: 4 }}>
+              {recommendation?.data?.title ?? ''}
+            </MusicInfoHeaderText>
+          </MusicInfoContainer>
+        </MusicContainer>
+      )}
+
       <Footer onClick={() => setIsCollapsed(!isCollapsed)}>
         <FooterTitleContainer>
           <FooterTitleText>내 하루의 취향</FooterTitleText>
@@ -101,12 +121,12 @@ const ResultBox = () => {
         </FooterTitleContainer>
         {!isCollapsed && (
           <FooterContentContainer>
-            <FooterContentText>
-              고양이가 잠을 깨우고, 만화가 잠 못 이루게 하는. 스포일러는
-              스쳐서도 안되는 방해꾼이며 달빛을 받으면 생기로워지는. 맨투맨의
-              편안함이, 무채색의 시크함이 더 끌리는. 혹한의 냉기가 더 견딜 만한.
-              샤워의 개운함을 참을 수 없는 하루
-            </FooterContentText>
+            {result &&
+              answers.map((answer, index) => (
+                <FooterContentText>
+                  {answer[Number((result as string).charAt(index))]}
+                </FooterContentText>
+              ))}
           </FooterContentContainer>
         )}
       </Footer>
