@@ -42,6 +42,9 @@ const Input = styled.input`
   color: #427d96;
   background: #ffffff;
   border-radius: 30px;
+  ::placeholder {
+    color: #e4edf2;
+  }
 `;
 const CloseIconContainer = styled.div`
   cursor: pointer;
@@ -75,12 +78,12 @@ const InputMusic = () => {
         </Header>
         <ContentContainer>
           <TitleText style={{ marginBottom: 108 }}>
-            잠결에 들리는 음악소리.{'\n'}
-            내가 좋아하는 노래였는데... {'\n'}
-            뭐였더라?
+            잠결에 들리는 음악소리...{'\n'}
+            내가 좋아하는 거다. {'\n'}
+            제목이 뭐였더라?
           </TitleText>
           <Input
-            placeholder={'아티스트 이름과 노래 제목'}
+            placeholder={'노래 제목과 아티스트 이름'}
             onChange={(e) => setKeyword(e.target.value)}
           />
         </ContentContainer>
