@@ -60,23 +60,23 @@ const Team = () => {
         <TitleContainer>
           <TitleText color={'white'}>울프 디벨로퍼스의</TitleText>
           <TitleText style={{ color: '#FF844B' }}>
-            프로젝트 팀 음취음취취
+            프로젝트 팀 음취취음취
           </TitleText>
         </TitleContainer>
       </UpperContainer>
       <BottomContainer>
         <ListContainer>
           <ItemContainer>
-            <ItemTitleText>Team leader</ItemTitleText>
+            <ItemTitleText>Team Lead</ItemTitleText>
             <ItemContentText>Cha Soyoung</ItemContentText>
           </ItemContainer>
           <ItemContainer>
-            <ItemTitleText>Designr</ItemTitleText>
+            <ItemTitleText>Designer</ItemTitleText>
             <ItemContentText>Gwak Soyoung</ItemContentText>
           </ItemContainer>
           <ItemContainer>
             <ItemTitleText>Front-End</ItemTitleText>
-            <ItemContentText>Hyunmyung Nam</ItemContentText>
+            <ItemContentText>Nam Hyunmyung</ItemContentText>
             <ItemContentText>Kwon HyungKung</ItemContentText>
           </ItemContainer>
           <ItemContainer>
@@ -85,7 +85,6 @@ const Team = () => {
             <ItemContentText>Cha Soyoung</ItemContentText>
           </ItemContainer>
         </ListContainer>
-
         <Circle
           backgroundColor={'orange'}
           icon={<LeftArrowIcon />}
