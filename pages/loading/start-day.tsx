@@ -1,7 +1,6 @@
 import Layout from '../../components/Layout';
 import { useEffect } from 'react';
 import Router from 'next/router';
-import StartDay from '../../components/layout/StartDay';
 import Quote from '../../components/layout/Quote';
 
 const StartDayPage = () => {
