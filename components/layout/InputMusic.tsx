@@ -4,9 +4,9 @@ import Modal from '../common/Modal';
 import TitleText from '../common/TitleText';
 import Button from '../common/Button';
 import { useDispatch } from 'react-redux';
-import { getSongs } from '../../reducers/songReducer';
+import { getSongs, setSongs } from '../../reducers/songReducer';
 import { PickSong } from './PickSong';
-import { SmallLogoIcon } from '../../public/svg';
+import { CloseIcon, SmallLogoIcon } from '../../public/svg';
 
 const Container = styled.main`
   height: 100%;
@@ -42,6 +42,15 @@ const Input = styled.input`
   color: #427d96;
   background: #ffffff;
   border-radius: 30px;
+`;
+const CloseIconContainer = styled.div`
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 15px;
+`;
+const PickSongContainer = styled.div`
+  position: relative;
 `;
 
 const InputMusic = () => {
@@ -79,15 +88,28 @@ const InputMusic = () => {
       <ButtonContainer>
         <Button
           onClick={() => handleClick()}
-          label={'곰곰이 생각해보기'}
-          color={'orange'}>
-          곰곰이 생각해보기
+          label={'이 노래는 바로바로바로...!'}
+          color={'orange'}
+          disabled={keyword === ''}>
+          이 노래는 바로바로바로...!
         </Button>
         <Modal
           isVisible={isVisible}
           width={312}
-          handleModalClosed={() => setIsVisible(false)}>
-          <PickSong />
+          handleModalClosed={() => {
+            dispatch(setSongs([]));
+            setIsVisible(false);
+          }}>
+          <PickSongContainer>
+            <CloseIconContainer
+              onClick={() => {
+                dispatch(setSongs([]));
+                setIsVisible(false);
+              }}>
+              <CloseIcon />
+            </CloseIconContainer>
+            <PickSong />
+          </PickSongContainer>
         </Modal>
       </ButtonContainer>
     </Container>

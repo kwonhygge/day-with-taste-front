@@ -34,7 +34,7 @@ const EndLoadingPage = () => {
 
   return (
     <Layout color={'blue'}>
-      <Quote themeColor={'light'} />
+      <Quote themeColor={'light'} contents={'하루를 마무리 하는 중...'} />
     </Layout>
   );
 };

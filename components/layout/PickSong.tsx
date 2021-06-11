@@ -8,6 +8,7 @@ import { setResultRequest } from '../../reducers/songReducer';
 import { PlayCircleIcon } from '../../public/svg';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import LoadingSpinner from '../common/LoadingSpinner';
 const Container = styled.main`
   width: 100%;
   height: 100%;
@@ -82,10 +83,17 @@ const FooterButton = styled.button`
     cursor: initial;
   }
 `;
+const LoadingContainer = styled.div`
+  width: 100%;
+  height: 324px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 export const PickSong = () => {
   const { songs } = useSelector((state: RootState) => state.songs);
-  console.log(songs);
   const router = useRouter();
+  const { loading } = useSelector((state: RootState) => state.songs);
   const [selectedKey, setSelectedKey] = useState('');
   const isSelectedKey = (currentKey: string) => {
     return currentKey === selectedKey;
@@ -129,7 +137,13 @@ export const PickSong = () => {
       <Container>
         <SongListContainer>
           <TitleText>내가 생각하는 음악은</TitleText>
-          {SongList()}
+          {loading ? (
+            <LoadingContainer>
+              <LoadingSpinner />
+            </LoadingContainer>
+          ) : (
+            SongList()
+          )}
           <FooterButton
             disabled={isSelectedKey('')}
             onClick={() => {

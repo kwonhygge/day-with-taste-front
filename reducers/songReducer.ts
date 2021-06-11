@@ -35,6 +35,8 @@ const POST_RESULT_SUCCESS = 'POST_RESULT_SUCCESS' as const;
 const POST_RESULT_ERROR = 'POST_RESULT_ERROR' as const;
 const SET_RESULT_REQUEST = 'SET_RESULT_REQUEST' as const;
 const SET_RESULT = 'SET_RESULT' as const;
+const SET_SONGS_REQUEST = 'SET_SONGS_REQUEST' as const;
+const SET_SONGS = 'SET_SONGS' as const;
 const GET_RECOMMENDATION = 'GET_RECOMMENDATION' as const;
 const GET_RECOMMENDATION_REQUEST = 'GET_RECOMMENDATION_REQUEST' as const;
 const GET_RECOMMENDATION_SUCCESS = 'GET_RECOMMENDATION_SUCCESS' as const;
@@ -62,6 +64,12 @@ export const setResult = (result: Result) => {
   return {
     type: SET_RESULT,
     payload: result,
+  };
+};
+export const setSongs = (songs: Song[]) => {
+  return {
+    type: SET_SONGS,
+    payload: songs,
   };
 };
 export const postResult = (result: Result) => ({
@@ -107,7 +115,8 @@ type SongsAction =
   | ReturnType<typeof getRecommendationRequest>
   | ReturnType<typeof getRecommendationSuccess>
   | ReturnType<typeof getRecommendationError>
-  | ReturnType<typeof setResult>;
+  | ReturnType<typeof setResult>
+  | ReturnType<typeof setSongs>;
 const songReducer = (
   state: SongsState = initialState,
   action: SongsAction
@@ -181,6 +190,11 @@ const songReducer = (
         ...state,
         result: action.payload,
       };
+    case SET_SONGS:
+      return {
+        ...state,
+        songs: action.payload,
+      };
     default:
       return state;
   }
@@ -217,6 +231,18 @@ interface SetResultSagaAction extends AnyAction {
 function* setResultSaga(action: SetResultSagaAction) {
   try {
     yield put({ type: SET_RESULT, payload: action.payload });
+  } catch (e) {
+    console.log(e);
+  }
+}
+interface SetSongsSagaAction extends AnyAction {
+  payload: {
+    songs: Song[];
+  };
+}
+function* setSongsSaga(action: SetSongsSagaAction) {
+  try {
+    yield put({ type: SET_SONGS, payload: action.payload });
   } catch (e) {
     console.log(e);
   }
@@ -273,5 +299,6 @@ export function* sagas() {
   yield takeEvery(GET_SONGS, getSongsSaga);
   yield takeEvery(POST_RESULT, postResultSaga);
   yield takeEvery(SET_RESULT_REQUEST, setResultSaga);
+  yield takeEvery(SET_SONGS_REQUEST, setSongsSaga);
   yield takeEvery(GET_RECOMMENDATION, getRecommendationSaga);
 }
