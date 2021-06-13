@@ -1,7 +1,7 @@
 import Layout from '../../components/Layout';
 import { useEffect } from 'react';
 import Router from 'next/router';
-import StartDay from '../../components/layout/StartDay';
+import Quote from '../../components/layout/Quote';
 
 const StartDayPage = () => {
   const moveToNextPage = () => {
@@ -12,7 +12,7 @@ const StartDayPage = () => {
   }, []);
   return (
     <Layout>
-      <StartDay themeColor={'dark'} />
+      <Quote themeColor={'dark'} contents={'당신의 하루가 시작되는 중...'} />
     </Layout>
   );
 };

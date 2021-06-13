@@ -6,8 +6,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import TitleText from '../common/TitleText';
 import {
   FacebookIcon,
-  KakaoIcon,
   LinkIcon,
+  RotateIcon,
   ShareIcon,
   SmallLogoIcon,
   TeamIcon,
@@ -41,7 +41,7 @@ const CircleContainer = styled.div`
 `;
 const IconContainer = styled.div`
   position: absolute;
-  top: -384px;
+  top: -288px;
 `;
 const CopiedText = styled(PrimaryText)`
   position: absolute;
@@ -87,6 +87,7 @@ const Result = () => {
       }, 1000);
     }
   }, [isCopied]);
+
 
   // useEffect(() => {
   //   createKakaoButton();
@@ -135,6 +136,7 @@ const Result = () => {
     }
   };
 
+
   return (
     <Container>
       {isCopied && <CopiedText>클립보드에 복사되었습니다!</CopiedText>}
@@ -150,14 +152,21 @@ const Result = () => {
         </ContentContainer>
       </UpperContainer>
       <ButtonContainer>
-        <Link href={'/team'}>
+        <Link href={'/'}>
           <Circle
-            icon={<TeamIcon />}
+            icon={<RotateIcon />}
             clickable={true}
             backgroundColor={'lightBlue'}
             style={{ marginRight: 16 }}
           />
         </Link>
+        <Circle
+          icon={<TeamIcon />}
+          clickable={true}
+          backgroundColor={'lightBlue'}
+          style={{ marginRight: 16 }}
+          onClick={() => router.push('/team')}
+        />
         <CircleContainer>
           <Circle
             icon={
@@ -177,7 +186,7 @@ const Result = () => {
           {isExpanded && (
             <IconContainer>
               <CopyToClipboard
-                text={`https://day-with-taste.netlify.app?/result?result=${result}&musicId=${musicId}`}
+                text={`https://day-with-taste.netlify.app/result?result=${result}&musicId=${musicId}`}
                 onCopy={() => setIsCopied(true)}>
                 <Circle
                   icon={<LinkIcon />}
@@ -201,6 +210,7 @@ const Result = () => {
                   />
                 </a>
               </Link>
+
               <Circle
                 id={'kakao-link-btn'}
                 icon={<KakaoIcon />}
@@ -209,6 +219,7 @@ const Result = () => {
                 style={{ marginBottom: 24 }}
                 onClick={() => shareViaKakao()}
               />
+
               <Link
                 href={`http://twitter.com/share?url=${encodeURIComponent(
                   `https://day-with-taste.netlify.app/result?result=${result}&musicId=${musicId}`

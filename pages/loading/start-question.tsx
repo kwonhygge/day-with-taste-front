@@ -1,7 +1,7 @@
 import Layout from '../../components/Layout';
-import Quote from '../../components/layout/Quote';
 import { useEffect } from 'react';
 import Router from 'next/router';
+import StartDay from '../../components/layout/StartDay';
 
 const StartQuestionPage = () => {
   const moveToNextPage = () => {
@@ -12,7 +12,7 @@ const StartQuestionPage = () => {
   }, []);
   return (
     <Layout>
-      <Quote themeColor={'dark'} />
+      <StartDay themeColor={'dark'} />
     </Layout>
   );
 };
