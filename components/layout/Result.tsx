@@ -6,6 +6,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import TitleText from '../common/TitleText';
 import {
   FacebookIcon,
+  KakaoIcon,
   LinkIcon,
   RotateIcon,
   ShareIcon,
@@ -161,6 +162,14 @@ const Result = () => {
                   />
                 </a>
               </Link>
+              <Circle
+                id={'kakao-link-btn'}
+                icon={<KakaoIcon />}
+                clickable={true}
+                backgroundColor={'yellow'}
+                style={{ marginBottom: 24 }}
+                onClick={() => shareViaKakao()}
+              />
               <Link
                 href={`http://twitter.com/share?url=${encodeURIComponent(
                   `https://day-with-taste.netlify.app/result?result=${result}&musicId=${musicId}`
