@@ -88,6 +88,55 @@ const Result = () => {
     }
   }, [isCopied]);
 
+
+  // useEffect(() => {
+  //   createKakaoButton();
+  // }, []);
+
+  const shareViaKakao = () => {
+    // kakao sdk script이 정상적으로 불러와졌으면 window.Kakao로 접근이 가능합니다
+    if (window.Kakao) {
+      const kakao = window.Kakao;
+      // 중복 initialization 방지
+      if (!kakao.isInitialized()) {
+        // 두번째 step 에서 가져온 javascript key 를 이용하여 initialize
+        kakao.init(process.env.kakaoKey);
+      }
+      kakao.Link.sendDefault({
+        // Render 부분 id=kakao-link-btn 을 찾아 그부분에 렌더링을 합니다
+        // container: '#kakao-link-btn',
+        objectType: 'feed',
+        content: {
+          title: '영혼의 단짝이 보내주는 음악 추천',
+          description: '당신과 같은 하루를 보낸 영혼의 단짝은 무슨 음악을 듣고 있을까요?',
+          imageUrl: 'IMAGE_URL', // i.e. process.env.FETCH_URL + '/logo.png'
+          link: {
+            mobileWebUrl: `https://day-with-taste.netlify.app/result?result=${result}&musicId=${musicId}`,
+            webUrl: `http://day-with-taste.netlify.app/result?result=${result}&musicId=${musicId}`,
+          },
+        },
+        buttons: [
+          {
+            title: '바로가기',
+            link: {
+              mobileWebUrl: `https://day-with-taste.netlify.app/result?result=${result}&musicId=${musicId}`,
+              webUrl: `http://day-with-taste.netlify.app/result?result=${result}&musicId=${musicId}`,
+            },
+          },
+          // {
+          //   title: '앱으로 보기',
+          //   link: {
+          //     mobileWebUrl: window.location.href,
+          //     webUrl: window.location.href,
+          //   },
+          // },
+        ],
+      });
+      setIsExpanded(false);
+    }
+  };
+
+
   return (
     <Container>
       {isCopied && <CopiedText>클립보드에 복사되었습니다!</CopiedText>}
@@ -161,6 +210,16 @@ const Result = () => {
                   />
                 </a>
               </Link>
+
+              <Circle
+                id={'kakao-link-btn'}
+                icon={<KakaoIcon />}
+                clickable={true}
+                backgroundColor={'yellow'}
+                style={{ marginBottom: 24 }}
+                onClick={() => shareViaKakao()}
+              />
+
               <Link
                 href={`http://twitter.com/share?url=${encodeURIComponent(
                   `https://day-with-taste.netlify.app/result?result=${result}&musicId=${musicId}`
