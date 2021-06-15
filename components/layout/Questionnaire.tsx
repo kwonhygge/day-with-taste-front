@@ -1,7 +1,7 @@
 import Router from 'next/router';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Question } from '../../interfaces';
 import Button from '../common/Button';
 import Label from '../common/Label';
@@ -39,9 +39,20 @@ const QuestionText = styled(TitleText)`
 
 const ButtonContainer = styled.div``;
 
-const AnswerButton = styled(Button)`
+const AnswerButton = styled(Button)<{ hasHover: boolean }>`
   & + & {
     margin-top: 10px;
+  }
+
+  @media (min-width: 415px) {
+    ${({ hasHover }) =>
+      hasHover &&
+      css`
+        &:hover {
+          color: #fff;
+          background-color: ${({ theme }) => theme.colors.orange};
+        }
+      `}
   }
 `;
 
@@ -100,10 +111,12 @@ const Questionnaire = ({ item }: Props) => {
       </UpperContainer>
       <ButtonContainer>
         <AnswerButton
+          hasHover
           label={item.answerA}
           onClick={() => handleButtonClick('A')}
         />
         <AnswerButton
+          hasHover
           label={item.answerB}
           onClick={() => handleButtonClick('B')}
         />

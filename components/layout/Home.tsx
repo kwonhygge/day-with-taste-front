@@ -62,7 +62,6 @@ const Home = () => {
           style={{ marginBottom: 16 }}
           size={'large'}
           onClick={() => setIsVisible(true)}
-          hoverColorDisabled
         />
         <Link href={'/loading/start-day'}>
           <Button label={'시작하기'} color={'orange'} size={'large'} />
