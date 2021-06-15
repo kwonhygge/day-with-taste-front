@@ -4,7 +4,6 @@ import Circle from '../common/Circle';
 import TitleText from '../common/TitleText';
 import PrimaryText from '../common/PrimaryText';
 import { LeftArrowIcon, SmallLogoIcon } from '../../public/svg';
-import { useRouter } from 'next/router';
 
 const Container = styled.main`
   height: 100%;
@@ -49,8 +48,8 @@ const ItemContentText = styled(PrimaryText)`
   color: #fff;
 `;
 
-const Team = () => {
-  const router = useRouter();
+const Team = (props: { onRequestGoBack: () => void }) => {
+  const { onRequestGoBack } = props;
   return (
     <Container>
       <UpperContainer>
@@ -90,7 +89,7 @@ const Team = () => {
           icon={<LeftArrowIcon />}
           clickable={true}
           style={{ marginBottom: 10 }}
-          onClick={() => router.back()}
+          onClick={() => onRequestGoBack()}
         />
       </BottomContainer>
     </Container>
