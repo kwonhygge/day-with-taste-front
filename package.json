@@ -8,14 +8,31 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^10.0.9",
+    "@svgr/webpack": "^5.5.0",
+    "@types/react-copy-to-clipboard": "^5.0.0",
+    "@types/react-redux": "^7.1.16",
+    "axios": "^0.21.1",
+    "babel-plugin-styled-components": "^1.12.0",
     "next": "^10.0.9",
+    "next-redux-wrapper": "^6.0.2",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-copy-to-clipboard": "^5.0.3",
+    "react-dom": "^17.0.1",
+    "react-redux": "^7.2.3",
+    "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
+    "redux-saga": "^1.1.3",
+    "sass": "^1.32.8",
+    "styled-components": "^5.2.1",
+    "styled-reset": "^4.3.4",
+    "typesafe-actions": "^5.1.0"
   },
   "devDependencies": {
     "@types/node": "^12.12.21",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "@types/styled-components": "^5.1.9",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "babel-eslint": "^10.1.0",
@@ -27,6 +44,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.2.1",
+    "redux-devtools-extension": "^2.13.9",
     "typescript": "4.0",
     "webpack": "^5.27.1"
   },

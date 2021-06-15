@@ -1,41 +1,71 @@
-import React, { ReactNode } from 'react'
-import Link from 'next/link'
-import Head from 'next/head'
+import React, { HTMLAttributes, ReactNode } from 'react';
+import Head from 'next/head';
+import styled, { css } from 'styled-components';
 
 type Props = {
-  children?: ReactNode
-  title?: string
-}
+  color?: 'white' | 'blue';
+  children?: ReactNode;
+};
 
-const Layout = ({ children, title = 'This is the default title' }: Props) => (
-  <div>
-    <Head>
-      <title>{title}</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
-    <header>
-      <nav>
-        <Link href="/">
-          <a>Home</a>
-        </Link>{' '}
-        |{' '}
-        <Link href="/about">
-          <a>About</a>
-        </Link>{' '}
-        |{' '}
-        <Link href="/users">
-          <a>Users List</a>
-        </Link>{' '}
-        | <a href="/api/users">Users API</a>
-      </nav>
-    </header>
-    {children}
-    <footer>
-      <hr />
-      <span>I'm here to stay (Footer)</span>
-    </footer>
-  </div>
-)
+type LayoutProps = Props & HTMLAttributes<HTMLDivElement>;
 
-export default Layout
+const LayoutContainer = styled.div<{ backgroundColor?: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  ${({ backgroundColor, theme }) => {
+    if (backgroundColor === 'white')
+      return css`
+        background-color: #fff;
+      `;
+    if (backgroundColor === 'blue')
+      return css`
+        background-color: ${theme.colors.primaryBlue};
+      `;
+    return css`
+      background-color: #f1f6fa;
+    `;
+  }}
+`;
+
+const LayoutInnerContainer = styled.div<{ backgroundColor?: string }>`
+  width: 360px;
+  height: 95%;
+  ${({ backgroundColor, theme }) => {
+    if (backgroundColor === 'white')
+      return css`
+        background-color: #fff;
+      `;
+    if (backgroundColor === 'blue')
+      return css`
+        background-color: ${theme.colors.primaryBlue};
+      `;
+    return css`
+      background-color: #f1f6fa;
+    `;
+  }}
+`;
+
+const Layout = (props: LayoutProps) => {
+  const { children, color } = props;
+
+  return (
+    <LayoutContainer backgroundColor={color}>
+      <LayoutInnerContainer backgroundColor={color} {...props}>
+        <Head>
+          <title>취향의 하루</title>
+          <meta charSet="utf-8" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+        </Head>
+        {children}
+      </LayoutInnerContainer>
+    </LayoutContainer>
+  );
+};
+
+export default Layout;
