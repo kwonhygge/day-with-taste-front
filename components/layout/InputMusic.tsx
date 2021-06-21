@@ -9,21 +9,27 @@ import { PickSong } from './PickSong';
 import { CloseIcon, SmallLogoIcon } from '../../public/svg';
 
 const Container = styled.main`
-  height: 100%;
-`;
-const UpperContainer = styled.div``;
-const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+
+  @media only screen and (max-height: 480px) {
+    height: 100%;
+  }
   margin-left: 24px;
   @media only screen and (max-width: 280px) {
     margin-left: 8px;
   }
 `;
+
+const UpperContainer = styled.div``;
+const UpperContentContainer = styled.div``;
 const ButtonContainer = styled.div`
-  position: fixed;
-  bottom: 48px;
-  margin-left: 24px;
-  @media only screen and (max-width: 280px) {
-    margin-left: 8px;
+  margin: 48px 0;
+
+  @media only screen and (max-height: 480px) {
+    margin: 32px 0;
   }
 `;
 const Header = styled.div`
@@ -85,7 +91,7 @@ const InputMusic = () => {
         <Header>
           <SmallLogoIcon color={'orange'} />
         </Header>
-        <ContentContainer>
+        <UpperContentContainer>
           <TitleText style={{ marginBottom: 108 }}>
             잠결에 들리는 음악소리...{'\n'}
             내가 좋아하는 거다. {'\n'}
@@ -95,7 +101,7 @@ const InputMusic = () => {
             placeholder={'노래 제목과 아티스트 이름'}
             onChange={(e) => setKeyword(e.target.value)}
           />
-        </ContentContainer>
+        </UpperContentContainer>
       </UpperContainer>
       <ButtonContainer>
         <Button

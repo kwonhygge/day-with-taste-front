@@ -29,7 +29,8 @@ const LayoutContainer = styled.div<{ backgroundColor?: string }>`
 `;
 
 const LayoutInnerContainer = styled.div<{ backgroundColor?: string }>`
-  height: 100vh;
+  min-height: 100vh;
+  height: fit-content;
   @media only screen and (max-width: 414px) {
     width: 100vw;
   }
