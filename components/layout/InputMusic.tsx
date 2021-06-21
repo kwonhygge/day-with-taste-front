@@ -14,11 +14,17 @@ const Container = styled.main`
 const UpperContainer = styled.div``;
 const ContentContainer = styled.div`
   margin-left: 24px;
+  @media only screen and (max-width: 280px) {
+    margin-left: 8px;
+  }
 `;
 const ButtonContainer = styled.div`
   position: fixed;
   bottom: 48px;
   margin-left: 24px;
+  @media only screen and (max-width: 280px) {
+    margin-left: 8px;
+  }
 `;
 const Header = styled.div`
   width: 100%;
@@ -31,6 +37,11 @@ const Header = styled.div`
 const Input = styled.input`
   width: 311px;
   height: 40px;
+
+  @media only screen and (max-width: 320px) {
+    width: 264px;
+  }
+
   padding-left: 17px;
   font-family: Roboto;
   font-style: normal;

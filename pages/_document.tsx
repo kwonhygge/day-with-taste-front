@@ -38,8 +38,11 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <meta charSet="utf-8" />
-          <meta property="og:url" content="page의 표준 URL" />
-          <meta property="og:type" content="article" />
+          <meta
+            property="og:url"
+            content="https://day-with-taste.netlify.app/"
+          />
+          <meta property="og:type" content="website" />
           <meta property="og:title" content="Day-with-taste" />
           <meta
             property="og:description"

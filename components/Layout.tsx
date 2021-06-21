@@ -13,25 +13,27 @@ const LayoutContainer = styled.div<{ backgroundColor?: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  ${({ backgroundColor, theme }) => {
-    if (backgroundColor === 'white')
-      return css`
-        background-color: #fff;
-      `;
+  ${({ backgroundColor }) => {
     if (backgroundColor === 'blue')
       return css`
-        background-color: ${theme.colors.primaryBlue};
+        background-image: url('/img/BackgroundNight.jpg');
+        background-position: center;
+        background-size: cover;
       `;
     return css`
-      background-color: #f1f6fa;
+      background-image: url('/img/BackgroundDay.jpg');
+      background-position: center;
+      background-size: cover;
     `;
   }}
 `;
 
 const LayoutInnerContainer = styled.div<{ backgroundColor?: string }>`
+  height: 100vh;
+  @media only screen and (max-width: 414px) {
+    width: 100vw;
+  }
   width: 360px;
-  height: 95%;
   ${({ backgroundColor, theme }) => {
     if (backgroundColor === 'white')
       return css`
