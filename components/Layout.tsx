@@ -13,6 +13,11 @@ const LayoutContainer = styled.div<{ backgroundColor?: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
+  @media only screen and (min-height: 812px) {
+    height: 100vh;
+  }
+
   ${({ backgroundColor }) => {
     if (backgroundColor === 'blue')
       return css`
