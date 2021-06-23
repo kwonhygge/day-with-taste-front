@@ -13,7 +13,7 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: 32px;
+  padding-bottom: 48px;
 `;
 const UpperContainer = styled.div`
   padding-top: 30px;
