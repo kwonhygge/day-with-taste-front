@@ -29,15 +29,19 @@ const LayoutContainer = styled.div<{ backgroundColor?: string }>`
 `;
 
 const LayoutInnerContainer = styled.div<{ backgroundColor?: string }>`
-  height: 100vh;
+  height: 812px;
+  width: 360px;
 
+  @media only screen and (max-height: 812px) {
+    height: 100vh;
+  }
   @media only screen and (max-height: 480px) {
     height: 100%;
   }
   @media only screen and (max-width: 414px) {
     width: 100vw;
   }
-  width: 360px;
+
   ${({ backgroundColor, theme }) => {
     if (backgroundColor === 'white')
       return css`

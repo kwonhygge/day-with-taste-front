@@ -12,7 +12,12 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
+
+  height: 812px;
+
+  @media only screen and (max-height: 812px) {
+    height: 100vh;
+  }
 
   @media only screen and (max-height: 480px) {
     height: 100%;
