@@ -1,41 +1,8 @@
-# TypeScript Next.js example
+# 취향의 하루 
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+## [Demo](https://day-with-taste.netlify.app/)
 
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript&project-name=with-typescript&repository-name=with-typescript)
-
-## How to use it?
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-typescript with-typescript-app
-# or
-yarn create next-app --example with-typescript with-typescript-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-## Notes
-
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
-
-```
-npm install --save-dev typescript
-```
-
-To enable TypeScript's features, we install the type declarations for React and Node.
-
-```
-npm install --save-dev @types/react @types/react-dom @types/node
-```
-
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
-
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
-
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
+## Preview
+<img width="1792" alt="스크린샷 2022-12-23 오전 12 11 18" src="https://user-images.githubusercontent.com/50289067/209164283-11fa3756-7209-4470-9d6a-de3cb2f9921b.png">
+<img width="1792" alt="스크린샷 2022-12-23 오전 12 11 38" src="https://user-images.githubusercontent.com/50289067/209164301-18499764-d775-4881-a512-c90d92ca4872.png">
+<img width="1792" alt="스크린샷 2022-12-23 오전 12 12 47" src="https://user-images.githubusercontent.com/50289067/209164486-6b95366c-b4a0-4e78-a519-8641f6f34676.png">
